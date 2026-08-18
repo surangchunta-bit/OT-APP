@@ -22,7 +22,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 /* ============================================================
@@ -39,11 +39,11 @@
   --acc-surface:linear-gradient(180deg,#ffb06b,#ff7a3d);
   --spark:#ffcf5c;
 
-  --display:"Thonburi","Mali",system-ui,-apple-system,sans-serif;
+  --display:"Mali","Sarabun","Thonburi",system-ui,-apple-system,"Helvetica Neue",sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{min-height:100%}
-body{font-family:var(--display);color:var(--ink);background:var(--sky-2);overflow-x:hidden;min-height:100vh;font-weight:600;-webkit-font-smoothing:antialiased}
+html,body{min-height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:var(--display);color:var(--ink);background:var(--sky-2);overflow-x:hidden;min-height:100vh;font-weight:600;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 
 /* ============================ SCENE ============================ */
 .scene{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
@@ -339,7 +339,7 @@ body{font-family:var(--display);color:var(--ink);background:var(--sky-2);overflo
   border-radius:4px 4px 7px 7px;background:#fffdf8;color:#2b2016;overflow:hidden;
   box-shadow:0 14px 26px rgba(0,0,0,.42),0 0 0 1px rgba(0,0,0,.07);
   clip-path:inset(0 0 100% 0);padding:11px 12px 13px;box-sizing:border-box;
-  font-family:'Sarabun','Mali',sans-serif;text-align:left}
+  font-family:'Sarabun',system-ui,sans-serif;text-align:left}
 .paper.print{animation:paperOut var(--pd,1500ms) cubic-bezier(.32,.05,.28,1) forwards}
 @keyframes paperOut{0%{clip-path:inset(0 0 100% 0)}100%{clip-path:inset(0 0 0 0)}}
 .paper.lit{box-shadow:0 14px 30px rgba(0,0,0,.42),0 0 34px 6px rgba(255,168,60,.85),0 0 0 1px rgba(255,190,90,.9)}
@@ -348,7 +348,7 @@ body{font-family:var(--display);color:var(--ink);background:var(--sky-2);overflo
   0%{clip-path:inset(0 0 0 0);opacity:1;transform:translateX(-50%) scale(1)}
   55%{clip-path:inset(0 0 42% 0);opacity:.85;transform:translateX(-50%) scale(1.02) rotate(-1deg)}
   100%{clip-path:inset(0 0 100% 0);opacity:0;transform:translateX(-50%) scale(.94) rotate(-2deg)}}
-.paper h4{font-size:11px;font-weight:800;letter-spacing:.4px;line-height:1.1}
+.paper h4{font-size:11px;font-weight:700;letter-spacing:.4px;line-height:1.1}
 .paper .p-sub{font-size:7.5px;color:#8a7a68;margin-top:2px;line-height:1.3}
 .paper .p-bar{height:2.5px;border-radius:2px;margin:6px 0 7px}
 .paper .p-row{display:flex;justify-content:space-between;gap:5px;font-size:7.5px;line-height:1.5;
@@ -409,7 +409,7 @@ body{font-family:var(--display);color:var(--ink);background:var(--sky-2);overflo
 .suc-check svg{width:30px;height:30px;color:#fff}
 .suc-check svg path{stroke-dasharray:26;stroke-dashoffset:26;animation:ckDraw .4s ease-out .34s forwards}
 @keyframes ckDraw{to{stroke-dashoffset:0}}
-.suc-t1{font-family:var(--display);font-size:31px;font-weight:800;color:#fff;line-height:1.25;
+.suc-t1{font-family:var(--display);font-size:31px;font-weight:700;color:#fff;line-height:1.25;
   text-shadow:0 3px 0 #b8410c,0 6px 18px rgba(0,0,0,.55)}
 .suc-t2{font-family:var(--display);font-size:15px;font-weight:600;color:#ffe6bd;margin-top:8px;line-height:1.45;
   text-shadow:0 2px 6px rgba(0,0,0,.5)}
@@ -1245,7 +1245,7 @@ function buildSheet(){
   const total = state.entries.length;
 
   return `<div style="position:relative;width:${PAGE_W}px;min-height:${PAGE_H}px;background:#ffffff;
-      font-family:'Sarabun','Mali',sans-serif;color:${INK};overflow:hidden;">
+      font-family:'Sarabun',system-ui,sans-serif;color:${INK};overflow:hidden;">
     ${decoLayer(P)}
     <div style="position:relative;padding:${MARGIN}px;box-sizing:border-box;">
 

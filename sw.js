@@ -1,6 +1,6 @@
 /* HRM Process — Request OT (RM)
    bump CACHE when you redeploy so phones pick up the new build */
-const CACHE = "ot-request-v5";
+const CACHE = "ot-request-v6";
 
 const SHELL = [
   "/",
