@@ -70,6 +70,13 @@
   --cream:var(--board); --cream-2:var(--board-2);
   --ink:var(--text-primary); --ink-soft:var(--text-secondary);
 
+  /* --- hand-drawn textures + ink outline --- */
+  --ink:rgba(12,8,4,.55);
+  --tex-hatch:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='22' viewBox='0 0 28 22'%3E %3Cg fill='none' stroke-linecap='round'%3E %3Cg stroke='%23ffffff' stroke-opacity='.07' stroke-width='1.15'%3E %3Cpath d='M-2 5q7-2.1 14 0t14 0'/%3E%3Cpath d='M-2 15.5q7-2.1 14 0t14 0'/%3E%3C/g%3E %3Cg stroke='%23000000' stroke-opacity='.09' stroke-width='1.15'%3E %3Cpath d='M-2 6.8q7-2.1 14 0t14 0'/%3E%3Cpath d='M-2 17.3q7-2.1 14 0t14 0'/%3E%3C/g%3E %3C/g%3E%3C/svg%3E");
+  --tex-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='128' viewBox='0 0 64 128'%3E %3Cg fill='none' stroke-linecap='round'%3E %3Cg stroke='%23000000' stroke-opacity='.2' stroke-width='1.7'%3E %3Cpath d='M9 -4q6 32 0 62t2 74'/%3E%3Cpath d='M27 -4q-6 34 2 64t-2 72'/%3E%3Cpath d='M48 -4q7 30-1 60t3 76'/%3E%3C/g%3E %3Cg stroke='%23ffffff' stroke-opacity='.075' stroke-width='1.3'%3E %3Cpath d='M12 -4q6 32 0 62t2 74'/%3E%3Cpath d='M30 -4q-6 34 2 64t-2 72'/%3E%3Cpath d='M51 -4q7 30-1 60t3 76'/%3E%3C/g%3E %3Cellipse cx='39' cy='44' rx='4.6' ry='8.4' stroke='%23000000' stroke-opacity='.22' stroke-width='1.5'/%3E %3Cellipse cx='39' cy='44' rx='1.8' ry='3.4' stroke='%23000000' stroke-opacity='.18' stroke-width='1.3'/%3E %3C/g%3E%3C/svg%3E");
+  --tex-planks:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='132' viewBox='0 0 260 132'%3E %3Cg fill='none' stroke-linecap='round'%3E %3Cg stroke='%23000000' stroke-opacity='.3' stroke-width='2'%3E %3Cpath d='M-4 8q66 4 130 0t138 3'/%3E%3Cpath d='M-4 70q74-4 140 3t128-2'/%3E%3C/g%3E %3Cg stroke='%23ffffff' stroke-opacity='.07' stroke-width='1.5'%3E %3Cpath d='M-4 11.4q66 4 130 0t138 3'/%3E%3Cpath d='M-4 73.4q74-4 140 3t128-2'/%3E%3C/g%3E %3Cg stroke='%23ffffff' stroke-opacity='.05' stroke-width='1.2'%3E %3Cpath d='M6 30q70 7 134-3t124 5'/%3E%3Cpath d='M-4 50q80-6 148 4t120-3'/%3E %3Cpath d='M10 96q70 6 130-4t124 5'/%3E%3Cpath d='M-4 116q84-5 150 4t118-3'/%3E%3C/g%3E %3Cg stroke='%23000000' stroke-opacity='.14' stroke-width='1.2'%3E %3Cpath d='M8 32q70 7 134-3t122 5'/%3E%3Cpath d='M-4 52q80-6 148 4t120-3'/%3E %3Cpath d='M12 98q70 6 130-4t122 5'/%3E%3C/g%3E %3Cg stroke='%23000000' stroke-opacity='.22' stroke-width='1.6'%3E %3Cellipse cx='196' cy='40' rx='9.5' ry='5.4'/%3E%3Cellipse cx='196' cy='40' rx='4' ry='2.2'/%3E %3Cellipse cx='62' cy='106' rx='7.5' ry='4.2'/%3E%3C/g%3E %3C/g%3E%3C/svg%3E");
+  --tex-gem:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E %3Cpath d='M50 3 L90 26.5 L90 73.5 L50 97 L10 73.5 L10 26.5 Z' fill='none' stroke='%231a1208' stroke-opacity='.62' stroke-width='6' stroke-linejoin='round'/%3E %3Cpath d='M50 3 L50 97 M10 26.5 L50 50 L90 26.5' fill='none' stroke='%23ffffff' stroke-opacity='.22' stroke-width='3'/%3E %3Cellipse cx='33' cy='24' rx='13' ry='8' fill='%23ffffff' fill-opacity='.8' transform='rotate%28-24 33 24%29'/%3E %3C/svg%3E");
+
   --display:"Mali","Sarabun","Thonburi",system-ui,-apple-system,"Helvetica Neue",sans-serif;
 }
 /* ---------- DAY MODE (set by the existing shift selector, visual only) ---------- */
@@ -97,6 +104,7 @@ html[data-sky="Day"]{
   --sky-1:#9ddcf5; --sky-2:#cfeeff; --sky-3:#e8f7de;
   --hill:#3f7a4a; --hill-d:#2f5e3f;
   --acc-d:#c14413;
+  --ink:rgba(48,26,8,.46);
 }
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -229,8 +237,9 @@ html[data-sky="Day"] .camp{opacity:.55}
 .wrap{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:52px 15px 172px}
 .panel{position:relative;border-radius:26px;padding:8px;margin-bottom:20px;
   background:
-    repeating-linear-gradient(97deg,rgba(0,0,0,.14) 0 3px,rgba(255,255,255,.035) 3px 7px),
+    var(--tex-grain),
     linear-gradient(180deg,var(--wood-light),var(--wood-mid) 58%,var(--wood-dark));
+  background-size:64px 128px,auto;
   box-shadow:0 8px 0 var(--wood-dark),0 22px 34px -16px rgba(0,0,0,.75),
     inset 0 2px 0 var(--edge-hi),inset 0 -3px 0 rgba(0,0,0,.3);
   animation:boardin .5s cubic-bezier(.2,.8,.3,1) both,cardfloat var(--fd,4.4s) ease-in-out 1s infinite}
@@ -238,8 +247,10 @@ html[data-sky="Day"] .camp{opacity:.55}
 @keyframes cardfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
 .panel-in{position:relative;border-radius:19px;padding:17px 15px 18px;
   background:
-    radial-gradient(120% 90% at 50% -10%,rgba(159,212,255,.08),transparent 60%),
+    var(--tex-planks),
+    radial-gradient(120% 90% at 50% -10%,rgba(159,212,255,.09),transparent 60%),
     linear-gradient(180deg,var(--board),var(--board-2));
+  background-size:260px 132px,auto,auto;
   box-shadow:inset 0 0 0 2px var(--carve),inset 0 3px 10px rgba(0,0,0,.55),inset 0 -2px 0 rgba(255,255,255,.05)}
 /* metal nails in the four corners */
 .panel::before,.panel::after,.panel-in::before,.panel-in::after{content:"";position:absolute;width:11px;height:11px;border-radius:50%;z-index:3;
@@ -251,7 +262,8 @@ html[data-sky="Day"] .camp{opacity:.55}
   color:var(--text-primary);text-shadow:0 2px 3px rgba(0,0,0,.55)}
 .step-chip{flex:0 0 auto;width:34px;height:34px;border-radius:12px;display:flex;align-items:center;justify-content:center;
   color:#3a1a05;font-size:16px;font-weight:700;background:var(--acc-surface);
-  box-shadow:0 4px 0 var(--acc-d),inset 0 2px 0 rgba(255,255,255,.5),0 0 14px var(--glow-warm)}
+  box-shadow:0 0 0 2px var(--ink),0 4px 0 var(--acc-d),0 4px 0 2px var(--ink),
+    inset 0 2px 0 rgba(255,255,255,.5),0 0 16px var(--glow-warm)}
 .mini-label{font-size:14px;font-weight:700;color:var(--text-secondary);margin:16px 0 9px;
   letter-spacing:.3px;text-shadow:0 1px 2px rgba(0,0,0,.5)}
 .hint{font-size:12px;font-weight:600;color:var(--text-secondary);line-height:1.5;margin-bottom:11px}
@@ -259,13 +271,18 @@ html[data-sky="Day"] .camp{opacity:.55}
 /* ============================ GAME BUTTONS ============================ */
 .gbtn{position:relative;border:none;cursor:pointer;color:#fff;font-family:inherit;font-weight:700;
   --b:var(--acc); --b-l:var(--acc-l); --b-d:var(--acc-d);
-  background:linear-gradient(180deg,var(--b-l),var(--b));border-radius:20px;padding:14px 16px;font-size:16px;line-height:1.35;
-  min-height:44px;text-shadow:0 2px 0 rgba(0,0,0,.3);
-  box-shadow:0 6px 0 var(--b-d),0 12px 18px -8px rgba(0,0,0,.6),inset 0 2px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(0,0,0,.18);
+  background:var(--tex-hatch),linear-gradient(180deg,var(--b-l),var(--b));
+  background-size:38px 22px,auto;
+  border-radius:20px;padding:14px 16px;font-size:16px;line-height:1.35;
+  min-height:44px;text-shadow:0 2px 0 rgba(0,0,0,.35);
+  box-shadow:0 0 0 2px var(--ink),0 6px 0 var(--b-d),0 6px 0 2px var(--ink),
+    0 13px 18px -8px rgba(0,0,0,.6),
+    inset 0 2px 0 rgba(255,255,255,.5),inset 0 -5px 0 rgba(0,0,0,.22),inset 0 0 0 1px rgba(255,255,255,.12);
   transition:box-shadow .16s ease,filter .16s ease;overflow-wrap:anywhere;word-break:break-word}
 .gbtn::before{content:"";position:absolute;left:9%;right:9%;top:5px;height:32%;border-radius:999px;
   background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));pointer-events:none;transition:opacity .16s ease,transform .16s ease}
-.gbtn:active{box-shadow:0 2px 0 var(--b-d),0 6px 10px -6px rgba(0,0,0,.55),inset 0 2px 0 rgba(255,255,255,.35);transform:translateY(3px)}
+.gbtn:active{box-shadow:0 0 0 2px var(--ink),0 2px 0 var(--b-d),0 2px 0 2px var(--ink),
+  0 6px 10px -6px rgba(0,0,0,.55),inset 0 2px 0 rgba(255,255,255,.35);transform:translateY(4px)}
 .gbtn:active::before{transform:scaleY(.72);opacity:.7}
 .gbtn:focus-visible{outline:4px solid var(--magic-glow);outline-offset:3px}
 @media (hover:hover){ .gbtn:hover{filter:brightness(1.08)} }
@@ -285,15 +302,17 @@ html[data-sky="Day"] .camp{opacity:.55}
 /* ============================ HANGING FOREST SIGN ============================ */
 .signboard{position:relative;text-align:center;padding:9px;border-radius:24px;margin:16px 0 22px;
   background:
-    repeating-linear-gradient(94deg,rgba(0,0,0,.16) 0 4px,rgba(255,255,255,.04) 4px 9px),
+    var(--tex-grain),
     linear-gradient(180deg,var(--wood-light),var(--wood-mid) 55%,var(--wood-dark));
+  background-size:64px 128px,auto;
   box-shadow:0 10px 0 var(--wood-dark),0 26px 40px -16px rgba(0,0,0,.8),
     inset 0 2px 0 var(--edge-hi),inset 0 -3px 0 rgba(0,0,0,.35);
   animation:signdrop .7s cubic-bezier(.25,1.4,.5,1) both,signsway 6s ease-in-out 1s infinite}
 @keyframes signdrop{from{opacity:0;transform:translateY(-40px) rotate(-3deg)}to{opacity:1;transform:none}}
 @keyframes signsway{0%,100%{transform:rotate(-.55deg)}50%{transform:rotate(.55deg)}}
 .sign-in{position:relative;border-radius:17px;padding:16px 14px 17px;
-  background:linear-gradient(180deg,var(--board),var(--board-2));
+  background:var(--tex-planks),linear-gradient(180deg,var(--board),var(--board-2));
+  background-size:260px 132px,auto;
   box-shadow:inset 0 0 0 2px var(--carve),inset 0 4px 12px rgba(0,0,0,.6)}
 .app-mark{display:block;width:72px;height:72px;margin:0 auto 8px;border-radius:50%;
   box-shadow:0 0 0 4px var(--wood-mid),0 0 0 6px var(--wood-dark),0 8px 18px -6px rgba(0,0,0,.8),0 0 26px var(--glow-warm);
@@ -329,8 +348,8 @@ html[data-sky="Day"] .camp{opacity:.55}
 /* facets */
 .dorb .ball::before{content:"";position:absolute;inset:0;
   background:linear-gradient(115deg,rgba(255,255,255,.55) 0 22%,rgba(255,255,255,0) 22% 46%,rgba(0,0,0,.25) 46% 100%)}
-.dorb .ball::after{content:"";position:absolute;width:30%;height:20%;top:13%;left:20%;border-radius:50%;
-  background:rgba(255,255,255,.85);filter:blur(1px)}
+.dorb .ball::after{content:"";position:absolute;inset:0;
+  background:var(--tex-gem) center/100% 100% no-repeat}
 .dorb .tick{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.2)}
 .dorb .tick svg{width:52%;height:52%;color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.8))}
 @media (hover:hover){ .dorb:hover .ball{transform:scale(1.16) rotate(-3deg)} }
@@ -345,8 +364,7 @@ html[data-sky="Day"] .camp{opacity:.55}
 /* ============================ SHIFT / TEAM PLAQUES ============================ */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.shiftbtn{display:flex;flex-direction:column;align-items:center;gap:7px;padding:16px 8px;border-radius:22px;font-size:15px;
-  background-image:repeating-linear-gradient(93deg,rgba(0,0,0,.10) 0 3px,rgba(255,255,255,.04) 3px 8px),linear-gradient(180deg,var(--b-l),var(--b))}
+.shiftbtn{display:flex;flex-direction:column;align-items:center;gap:7px;padding:16px 8px;border-radius:22px;font-size:15px}
 .shiftbtn .ico{width:44px;height:44px;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45))}
 .shiftbtn.day{--b:#c9762a;--b-l:#ffc26e;--b-d:#5e2f08;color:#3a1a05;text-shadow:0 1px 0 rgba(255,255,255,.35);
   box-shadow:0 6px 0 var(--b-d),0 0 26px var(--glow-warm),inset 0 2px 0 rgba(255,255,255,.5)}
@@ -445,13 +463,14 @@ html[data-sky="Day"] .camp{opacity:.55}
 .cta{position:relative;width:100%;padding:18px;border-radius:24px;font-size:21px;font-weight:700;
   display:flex;align-items:center;justify-content:center;gap:12px;overflow:hidden;color:#eafff1;
   --b:#1f3a2a;--b-l:#2f5340;--b-d:#0c1a12;
-  background-image:repeating-linear-gradient(94deg,rgba(0,0,0,.18) 0 4px,rgba(255,255,255,.05) 4px 9px),linear-gradient(180deg,var(--b-l),var(--b));
-  box-shadow:0 7px 0 var(--b-d),0 0 0 2px rgba(6,199,85,.55),0 0 28px rgba(6,199,85,.45),
-    inset 0 2px 0 rgba(255,255,255,.18),inset 0 -4px 0 rgba(0,0,0,.35);
+  box-shadow:0 0 0 2px var(--ink),0 7px 0 var(--b-d),0 7px 0 2px var(--ink),
+    0 0 0 4px rgba(6,199,85,.45),0 0 30px rgba(6,199,85,.45),
+    inset 0 2px 0 rgba(255,255,255,.2),inset 0 -5px 0 rgba(0,0,0,.38);
   text-shadow:0 2px 3px rgba(0,0,0,.7);
   transition:transform .22s cubic-bezier(.3,1.4,.5,1),box-shadow .16s ease}
 @media (hover:hover){ .cta:hover{transform:scale(1.02)} .cta:hover .rocket{animation:rocketWiggle .5s ease-in-out infinite} }
-.cta:active{transform:translateY(4px);box-shadow:0 3px 0 var(--b-d),0 0 0 2px rgba(6,199,85,.55),0 0 34px rgba(6,199,85,.6),inset 0 2px 0 rgba(255,255,255,.14)}
+.cta:active{transform:translateY(5px);box-shadow:0 0 0 2px var(--ink),0 3px 0 var(--b-d),0 3px 0 2px var(--ink),
+  0 0 0 4px rgba(6,199,85,.5),0 0 34px rgba(6,199,85,.6),inset 0 2px 0 rgba(255,255,255,.16)}
 .cta-glow{position:absolute;inset:-10px;border-radius:34px;background:radial-gradient(closest-side,rgba(6,199,85,.45),transparent 72%);
   z-index:-1;animation:ctaBreath 2.8s ease-in-out infinite;pointer-events:none}
 @keyframes ctaBreath{0%,100%{opacity:.45;transform:scale(.97)}50%{opacity:.9;transform:scale(1.04)}}
@@ -527,14 +546,14 @@ html[data-sky="Day"] .trunk{opacity:.8}
 .emp.on .av{box-shadow:0 0 0 2.5px var(--acc),0 0 0 4px rgba(0,0,0,.45),
   inset 0 3px 0 rgba(255,255,255,.45),inset 0 -5px 8px rgba(0,0,0,.4),0 0 22px var(--glow-warm)}
 
-/* carved wood grain on every plaque-style control */
-.gbtn.ghost,.chip,.emp,.teambtn,.addbtn{
-  background-image:repeating-linear-gradient(93deg,rgba(0,0,0,.13) 0 3px,rgba(255,255,255,.035) 3px 8px),
-    linear-gradient(180deg,var(--b-l),var(--b))}
-.gbtn.ghost{box-shadow:0 6px 0 var(--b-d),0 10px 16px -8px rgba(0,0,0,.6),
-  inset 0 0 0 1.5px rgba(255,236,196,.1),inset 0 2px 0 rgba(255,255,255,.14),inset 0 -4px 0 rgba(0,0,0,.28)}
-.addbtn{background-image:repeating-linear-gradient(93deg,rgba(0,0,0,.12) 0 3px,rgba(255,255,255,.05) 3px 8px),
-  linear-gradient(180deg,var(--b-l),var(--b))}
+/* big plaques get the full plank grain instead of the fine face grain */
+.shiftbtn,.teambtn,.addbtn,.cta{
+  background-image:var(--tex-grain),linear-gradient(180deg,var(--b-l),var(--b));
+  background-size:64px 128px,auto}
+.gbtn.ghost{box-shadow:0 0 0 2px var(--ink),0 6px 0 var(--b-d),0 6px 0 2px var(--ink),
+  0 12px 16px -8px rgba(0,0,0,.6),
+  inset 0 0 0 1.5px rgba(255,236,196,.12),inset 0 2px 0 rgba(255,255,255,.15),inset 0 -5px 0 rgba(0,0,0,.3)}
+
 
 /* ============================================================
    PRINT → BURN → SUCCESS OVERLAY
@@ -1082,6 +1101,19 @@ function docTheme(){
 /* ============================ HELPERS ============================ */
 const $ = (id)=>document.getElementById(id);
 const initials = (n)=>n.slice(0,2).toUpperCase();
+/* drawn marks for the exported sheet — no emoji fonts, so every phone renders them the same */
+function glyph(kind,color,size){
+  const art={
+    sun:`<circle cx='12' cy='12' r='4.8' fill='${color}'/><g stroke='${color}' stroke-width='2' stroke-linecap='round'>`+
+        `<path d='M12 1.4v3M12 19.6v3M1.4 12h3M19.6 12h3M4.4 4.4l2.1 2.1M17.5 17.5l2.1 2.1M19.6 4.4l-2.1 2.1M6.5 17.5l-2.1 2.1'/></g>`,
+    moon:`<path d='M20.4 15A9 9 0 019.2 3.6 9 9 0 1020.4 15z' fill='${color}'/>`+
+         `<g fill='${color}'><circle cx='4.6' cy='5.2' r='1.3'/><circle cx='8.4' cy='2' r='.9'/></g>`,
+    star:`<path d='M12 1.8l3 6.4 6.8.9-5 4.8 1.3 6.9L12 17.6 5.9 20.8l1.3-6.9-5-4.8 6.8-.9z' fill='${color}'/>`
+  }[kind];
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>${art}</svg>`;
+  return `<img src="data:image/svg+xml,${encodeURIComponent(svg)}" width="${size}" height="${size}" alt="" `+
+         `style="vertical-align:-${(size*0.16).toFixed(1)}px;margin-right:${Math.round(size*0.26)}px">`;
+}
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const APP_ACC = "#ff7a3d", APP_ACC_D = "#c14413";
 /* campfire palette for the name tokens: ember, lantern, moss, moonlight, wood, night bloom */
@@ -1446,7 +1478,7 @@ function buildSheet(){
         box-shadow:0 3px 14px rgba(31,41,51,${active?0.10:0.05});">
       <div style="height:${F.cardH}px;line-height:${F.cardH}px;text-align:center;background:${active?S.headFill:S.primaryLight};
         color:${active?S.onPrimary:S.primaryDark};font-size:${F.name}px;font-weight:800;letter-spacing:.6px;">
-        ${isMain?"★ TEAM "+team:"TEAM "+team}${isMain?" · ทีมหลัก":""}${active?"":" · ไม่มีคนทำ OT"}
+        ${isMain?glyph("star",active?S.onPrimary:S.primaryDark,Math.round(F.name*0.92))+"TEAM "+team:"TEAM "+team}${isMain?" · ทีมหลัก":""}${active?"":" · ไม่มีคนทำ OT"}
       </div>
       <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
         <thead><tr>${headCells}</tr></thead>
@@ -1486,7 +1518,7 @@ function buildSheet(){
           <div style="margin-top:20px;">
             <span style="display:inline-block;height:56px;line-height:56px;padding:0 30px;border-radius:28px;
               background:${T.headFill};color:${T.onPrimary};font-size:25px;font-weight:700;">
-              ${state.shift==="Day"?"☀ กะกลางวัน (Day)":"☾ กะกลางคืน (Night)"}</span>
+              ${state.shift==="Day"?glyph("sun",T.onPrimary,26)+"กะกลางวัน (Day)":glyph("moon",T.onPrimary,26)+"กะกลางคืน (Night)"}</span>
             <span style="display:inline-block;height:56px;line-height:52px;padding:0 26px;border-radius:28px;margin-left:12px;
               background:#ffffff;border:2px solid ${T.border};color:${T.primaryDark};font-size:23px;font-weight:700;">
               ผู้ทำ OT ${total} คน</span>
@@ -1559,7 +1591,7 @@ function paperMarkup(){
   const more=state.entries.length>5?`<div class="p-row" style="border:none;justify-content:center;opacity:.7">
     และอีก ${state.entries.length-5} คน</div>`:"";
   return `<h4>OT REQUEST <span style="color:${T.primary}">· RM</span></h4>
-    <div class="p-sub">${state.shift==="Day"?"☀ กะกลางวัน (Day)":"☾ กะกลางคืน (Night)"} · ${dateFmt}</div>
+    <div class="p-sub">${state.shift==="Day"?glyph("sun","#c9770a",9)+"กะกลางวัน (Day)":glyph("moon","#7fa9dd",9)+"กะกลางคืน (Night)"} · ${dateFmt}</div>
     <div class="p-bar" style="background:${T.bar}"></div>
     <div class="p-row" style="opacity:.6;border-bottom-style:solid"><b>NAME</b><span>OT TIME</span><b>TOTAL</b></div>
     ${rows}${more}
