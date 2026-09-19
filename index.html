@@ -143,7 +143,7 @@ html[data-sky="Day"] .sun{opacity:1;transform:none}
 .stars{position:absolute;inset:0;transition:opacity 1.5s ease}
 html[data-sky="Day"] .stars{opacity:0}
 .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--td,4s) ease-in-out infinite}
-@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+@keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
 
 /* moon-ray / sun-ray sweep */
 .rays{position:absolute;top:-30%;left:-10%;width:66%;height:150%;
@@ -152,7 +152,8 @@ html[data-sky="Day"] .stars{opacity:0}
 @keyframes raysweep{0%{transform:translateX(-40%)}100%{transform:translateX(170%)}}
 
 /* layered forest ridges (parallax) */
-.ridge{position:absolute;left:50%;bottom:0;width:1200px;max-width:none;transform:translate3d(-50%,0,0);transition:opacity 1.5s ease}
+.ridge{position:absolute;left:50%;bottom:0;width:1200px;max-width:none;transform:translate3d(-50%,0,0);
+  transition:opacity 1.5s ease;will-change:transform;backface-visibility:hidden}
 .ridge-far{opacity:.55;transform:translate3d(-50%,calc(var(--sc) * 26px),0)}
 .ridge-mid{opacity:.85;transform:translate3d(-50%,calc(var(--sc) * 14px),0)}
 .ridge-near{transform:translate3d(-50%,calc(var(--sc) * 5px),0)}
@@ -269,7 +270,7 @@ html[data-sky="Day"] .camp{opacity:.55}
   background-size:64px 128px,auto;
   box-shadow:0 8px 0 var(--wood-dark),0 22px 34px -16px rgba(0,0,0,.75),
     inset 0 2px 0 var(--edge-hi),inset 0 -3px 0 rgba(0,0,0,.3);
-  animation:boardin .5s cubic-bezier(.2,.8,.3,1) both,cardfloat var(--fd,4.4s) ease-in-out 1s infinite}
+  animation:boardin .5s cubic-bezier(.2,.8,.3,1) both}
 @keyframes boardin{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
 @keyframes cardfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
 .panel-in{position:relative;border-radius:19px;padding:17px 15px 18px;
@@ -539,6 +540,17 @@ html[data-sky="Day"] .camp{opacity:.55}
   80%{opacity:1;transform:translate(-50%,-50%) scale(1)}
   100%{opacity:0;transform:translate(-50%,-90%) scale(.9)}}
 
+/* while the finger is moving the page, every decorative loop rests.
+   nothing here is load-bearing, and it keeps scrolling on the compositor. */
+html.is-scrolling .star,html.is-scrolling .mote,html.is-scrolling .fogband,
+html.is-scrolling .cloud,html.is-scrolling .rays,html.is-scrolling .glant,
+html.is-scrolling .pdeco,html.is-scrolling .camp .fireglow,html.is-scrolling .camp .flamepath,
+html.is-scrolling .signboard,html.is-scrolling .app-mark,html.is-scrolling .sign-deco.lantern,
+html.is-scrolling .picked,html.is-scrolling .rim::after,html.is-scrolling .cta-glow,
+html.is-scrolling .cta .shine,html.is-scrolling .sun .disc,html.is-scrolling .empty svg,
+html.is-scrolling .teambtn.on .badge-ico,html.is-scrolling .emp.on .av,
+html.is-scrolling .shiftbtn.picked .ico{animation-play-state:paused!important}
+
 /* dusk wash — plays while day/night cross-fades */
 .dusk{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .8s ease;
   background:linear-gradient(180deg,rgba(255,150,70,0) 0%,rgba(255,120,40,.38) 48%,rgba(96,48,96,.34) 100%)}
@@ -564,7 +576,8 @@ html[data-sky="Day"] .camp{opacity:.55}
 html[data-sky="Day"] .glant rect:last-child{filter:none}
 
 /* foreground tree trunks framing the clearing */
-.trunk{position:absolute;bottom:0;height:100%;width:120px;opacity:.95;transition:opacity 1.2s ease}
+.trunk{position:absolute;bottom:0;height:100%;width:120px;opacity:.95;transition:opacity 1.2s ease;
+  will-change:transform;backface-visibility:hidden}
 .trunk.tl{left:0;transform:translate3d(0,calc(var(--sc) * -8px),0)}
 .trunk.tr{right:0;transform:translate3d(0,calc(var(--sc) * -8px),0)}
 html[data-sky="Day"] .trunk{opacity:.8}
@@ -1999,20 +2012,33 @@ if("serviceWorker" in navigator){
     host.innerHTML=html;
   })();
 
-  /* ---- gentle scroll parallax on the forest ridges ---- */
+  /* ---- gentle scroll parallax + a rest state while scrolling ----
+     the five layers are written directly: setting a custom property on .scene
+     used to restyle all ~90 children on every scroll frame. ---- */
+  let scrolling=false;
   if(!reduced){
-    let ticking=false;
+    const layers=[[".ridge-far",26,"-50%"],[".ridge-mid",14,"-50%"],[".ridge-near",5,"-50%"],
+                  [".trunk.tl",-8,"0"],[".trunk.tr",-8,"0"]]
+      .map(([sel,amt,x])=>({el:scene.querySelector(sel),amt,x})).filter(l=>l.el);
+    let ticking=false,last=-1,stop=0;
+    const apply=()=>{
+      const max=Math.max(1,document.body.scrollHeight-innerHeight);
+      const v=Math.min(1,scrollY/max);
+      if(Math.abs(v-last)>=0.002){
+        last=v;
+        for(const l of layers) l.el.style.transform=`translate3d(${l.x},${(v*l.amt).toFixed(1)}px,0)`;
+      }
+      ticking=false;
+    };
     const onScroll=()=>{
+      if(!scrolling){ scrolling=true; document.documentElement.classList.add("is-scrolling"); }
+      clearTimeout(stop);
+      stop=setTimeout(()=>{ scrolling=false; document.documentElement.classList.remove("is-scrolling"); },140);
       if(ticking) return;
-      ticking=true;
-      requestAnimationFrame(()=>{
-        const max=Math.max(1,document.body.scrollHeight-innerHeight);
-        scene.style.setProperty("--sc", Math.min(1, scrollY/max).toFixed(3));
-        ticking=false;
-      });
+      ticking=true; requestAnimationFrame(apply);
     };
     addEventListener("scroll",onScroll,{passive:true});
-    onScroll();
+    apply();
   }
 
   /* ---- day / night wash, driven by the existing shift selection ---- */
@@ -2035,7 +2061,7 @@ if("serviceWorker" in navigator){
   let W=0,H=0,dpr=1,kind="magic",parts=[],raf=0,boltAt=0,changeAt=0,running=true;
 
   function size(){
-    dpr=Math.min(devicePixelRatio||1,2);
+    dpr=Math.min(devicePixelRatio||1,1.25);   /* soft particles: full DPR buys nothing */
     W=scene.clientWidth; H=scene.clientHeight;
     cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
     ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -2050,17 +2076,17 @@ if("serviceWorker" in navigator){
     parts=[];
     const area=W*H;
     if(k==="rain"||k==="storm"){
-      const n=Math.min(k==="storm"?260:150, Math.round(area/5200));
+      const n=Math.min(k==="storm"?170:100, Math.round(area/8200));
       for(let i=0;i<n;i++) parts.push({x:rand(0,W),y:rand(-H,H),l:rand(9,20),v:rand(9,16)*(k==="storm"?1.35:1),o:rand(.25,.6)});
     }else if(k==="snow"){
-      const n=Math.min(150, Math.round(area/7000));
+      const n=Math.min(100, Math.round(area/10500));
       for(let i=0;i<n;i++) parts.push({x:rand(0,W),y:rand(-H,H),r:rand(1.2,3.4),v:rand(.5,1.5),s:rand(0,6.28),o:rand(.4,.9)});
     }else if(k==="leaves"){
-      const n=Math.min(46, Math.round(area/18000));
+      const n=Math.min(34, Math.round(area/24000));
       for(let i=0;i<n;i++) parts.push({x:rand(-40,W),y:rand(-H,H),w:rand(7,13),v:rand(1,2.4),d:rand(1.4,3.4),
         a:rand(0,6.28),sp:rand(.02,.06),c:LEAF[i%LEAF.length],o:rand(.55,.95)});
     }else if(k==="magic"){
-      const n=Math.min(70, Math.round(area/11000));
+      const n=Math.min(48, Math.round(area/16000));
       for(let i=0;i<n;i++) parts.push({x:rand(0,W),y:rand(0,H),r:rand(.8,2.4),v:rand(.15,.6),s:rand(0,6.28),o:rand(.3,.9)});
     }
     cv.classList.toggle("on", parts.length>0);
@@ -2107,7 +2133,7 @@ if("serviceWorker" in navigator){
 
   function tick(t){
     raf=requestAnimationFrame(tick);
-    if(!running) return;
+    if(!running||scrolling) return;      /* the canvas rests while the page moves */
     if(parts.length) draw();
     if(kind==="storm" && t>boltAt){
       boltAt=t+rand(3800,11000);
