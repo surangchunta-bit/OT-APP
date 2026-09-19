@@ -229,6 +229,19 @@ html[data-sky="Day"] .camp{opacity:.55}
   background:linear-gradient(90deg,transparent,#fff,#cfe0ff);animation:shoot .85s cubic-bezier(.3,.1,.6,1) forwards}
 @keyframes shoot{0%{transform:rotate(22deg) translateX(0) scaleX(.3);opacity:0}
   18%{opacity:1}100%{transform:rotate(22deg) translateX(88vw) scaleX(1);opacity:0}}
+/* press feedback: a puff of flame catches where the finger lands */
+.heat-ring{position:absolute;width:54px;height:54px;border-radius:50%;transform:translate(-50%,-50%) scale(.25);
+  background:radial-gradient(circle,rgba(255,244,205,.95),rgba(255,150,60,.55) 44%,rgba(200,60,10,.18) 66%,transparent 76%);
+  animation:heatpop .55s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes heatpop{60%{opacity:.9}100%{transform:translate(-50%,-50%) scale(2.3);opacity:0}}
+.flametip{position:absolute;width:var(--fw,15px);height:var(--fh,27px);border-radius:52% 52% 44% 44%;
+  background:radial-gradient(circle at 50% 80%,#fff9e6 0%,#ffd166 26%,#ff8a2b 56%,rgba(214,62,12,.35) 76%,transparent 84%);
+  filter:blur(.7px);transform:translate(-50%,-50%) scale(.25);
+  animation:flametip var(--d,.62s) cubic-bezier(.25,.7,.4,1) forwards}
+@keyframes flametip{
+  0%{transform:translate(calc(-50% + var(--dx)),-50%) scale(.25) rotate(var(--rz,0deg));opacity:0}
+  22%{opacity:1}
+  100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.1) rotate(var(--rz,0deg));opacity:0}}
 .energywave{position:absolute;border-radius:50%;border:6px solid var(--magic-glow);transform:translate(-50%,-50%) scale(0);
   animation:ewave .8s cubic-bezier(.15,.7,.3,1) forwards}
 @keyframes ewave{to{transform:translate(-50%,-50%) scale(9);opacity:0;border-width:1px}}
@@ -260,7 +273,7 @@ html[data-sky="Day"] .camp{opacity:.55}
 
 .head-label{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:17px;font-weight:700;line-height:1.35;
   color:var(--text-primary);text-shadow:0 2px 3px rgba(0,0,0,.55)}
-.step-chip{flex:0 0 auto;width:34px;height:34px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+.step-chip{flex:0 0 auto;width:34px;height:34px;border-radius:13px 16px 11px 15px/15px 11px 16px 13px;display:flex;align-items:center;justify-content:center;
   color:#3a1a05;font-size:16px;font-weight:700;background:var(--acc-surface);
   box-shadow:0 0 0 2px var(--ink),0 4px 0 var(--acc-d),0 4px 0 2px var(--ink),
     inset 0 2px 0 rgba(255,255,255,.5),0 0 16px var(--glow-warm)}
@@ -273,7 +286,7 @@ html[data-sky="Day"] .camp{opacity:.55}
   --b:var(--acc); --b-l:var(--acc-l); --b-d:var(--acc-d);
   background:var(--tex-hatch),linear-gradient(180deg,var(--b-l),var(--b));
   background-size:38px 22px,auto;
-  border-radius:20px;padding:14px 16px;font-size:16px;line-height:1.35;
+  border-radius:21px 25px 19px 23px/24px 19px 25px 21px;padding:14px 16px;font-size:16px;line-height:1.35;
   min-height:44px;text-shadow:0 2px 0 rgba(0,0,0,.35);
   box-shadow:0 0 0 2px var(--ink),0 6px 0 var(--b-d),0 6px 0 2px var(--ink),
     0 13px 18px -8px rgba(0,0,0,.6),
@@ -364,7 +377,8 @@ html[data-sky="Day"] .camp{opacity:.55}
 /* ============================ SHIFT / TEAM PLAQUES ============================ */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.shiftbtn{display:flex;flex-direction:column;align-items:center;gap:7px;padding:16px 8px;border-radius:22px;font-size:15px}
+.shiftbtn{display:flex;flex-direction:column;align-items:center;gap:7px;padding:18px 8px 15px;font-size:15px;
+  border-radius:30px 26px 22px 26px/26px 30px 26px 22px}
 .shiftbtn .ico{width:44px;height:44px;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45))}
 .shiftbtn.day{--b:#c9762a;--b-l:#ffc26e;--b-d:#5e2f08;color:#3a1a05;text-shadow:0 1px 0 rgba(255,255,255,.35);
   box-shadow:0 6px 0 var(--b-d),0 0 26px var(--glow-warm),inset 0 2px 0 rgba(255,255,255,.5)}
@@ -378,7 +392,8 @@ html[data-sky="Day"] .camp{opacity:.55}
 .shiftbtn.night.picked .ico{animation:moonwob 4.5s ease-in-out infinite}
 @keyframes moonwob{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
 
-.teambtn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:15px 6px 13px;border-radius:20px;transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
+.teambtn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:15px 6px 17px;
+  border-radius:22px 22px 46% 46%/20px 20px 38% 38%;transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
 .teambtn .badge-ico{width:32px;height:32px;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45));transition:transform .28s cubic-bezier(.3,1.7,.5,1)}
 .teambtn.on{transform:translateY(-4px)}
 .teambtn.on .badge-ico{animation:icojump 2.6s ease-in-out infinite}
@@ -388,7 +403,8 @@ html[data-sky="Day"] .camp{opacity:.55}
 
 /* ============================ EMPLOYEES ============================ */
 .emps{display:grid;grid-template-columns:1fr;gap:11px}
-.emp{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 13px;border-radius:22px;transition:transform .2s cubic-bezier(.3,1.4,.5,1)}
+.emp{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 13px;
+  border-radius:26px 20px 24px 19px/20px 26px 19px 24px;transition:transform .2s cubic-bezier(.3,1.4,.5,1)}
 .emp .av{flex:0 0 auto;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;
   font-size:16px;font-weight:700;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.35);
   box-shadow:inset 0 3px 0 rgba(255,255,255,.4),inset 0 -4px 6px rgba(0,0,0,.35),0 3px 0 rgba(0,0,0,.35)}
@@ -411,20 +427,21 @@ html[data-sky="Day"] .camp{opacity:.55}
 
 /* ============================ CHIPS / RULE / DATE ============================ */
 .chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.chip{padding:12px 4px;border-radius:16px;font-size:15px;text-align:center;line-height:1.3;min-height:44px}
-.rule{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 16px;padding:12px 14px;border-radius:16px;
+.chip{padding:12px 4px;border-radius:15px 20px 14px 18px/18px 14px 20px 15px;font-size:15px;text-align:center;line-height:1.3;min-height:44px}
+.rule{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 16px;padding:12px 14px;
+  border-radius:18px 22px 16px 20px/20px 16px 22px 18px;
   background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.18));font-size:14px;font-weight:600;line-height:1.45;
   color:var(--text-primary);
   box-shadow:inset 0 0 0 2px rgba(255,236,196,.14),0 3px 0 rgba(0,0,0,.35);animation:rulein .32s cubic-bezier(.25,1.5,.5,1)}
 @keyframes rulein{from{opacity:0;transform:scale(.94) translateY(-4px)}to{opacity:1;transform:none}}
 .rule b{color:var(--acc-l);font-weight:700;text-shadow:0 0 12px var(--glow-warm)}
 .rule .dot{width:6px;height:6px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc);flex:0 0 auto}
-.addbtn{width:100%;padding:17px;border-radius:22px;font-size:18px;display:flex;align-items:center;justify-content:center;gap:9px;
+.addbtn{width:100%;padding:17px;border-radius:27px 31px 24px 29px/29px 24px 31px 27px;font-size:18px;display:flex;align-items:center;justify-content:center;gap:9px;
   --b:#3f8f52;--b-l:#71c483;--b-d:#1c4a28;color:#f2ffe9;box-shadow:0 6px 0 var(--b-d),0 0 22px rgba(90,200,120,.3),inset 0 2px 0 rgba(255,255,255,.4)}
 .addbtn svg{width:22px;height:22px;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
 @media (hover:hover){ .addbtn:hover svg{transform:rotate(90deg) scale(1.15)} }
-.dateInput{width:100%;padding:15px 14px;border-radius:18px;font-family:inherit;font-size:17px;font-weight:700;
-  color:var(--text-primary);color-scheme:dark;
+.dateInput{width:100%;padding:15px 14px;font-family:inherit;font-size:17px;font-weight:700;
+  color:var(--text-primary);color-scheme:dark;border-radius:20px 24px 18px 22px/22px 18px 24px 20px;
   border:none;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.28));
   box-shadow:inset 0 0 0 2px rgba(255,236,196,.2),0 4px 0 rgba(0,0,0,.4);outline:none;min-height:44px}
 .dateInput:focus{box-shadow:inset 0 0 0 2px var(--acc),0 4px 0 var(--acc-d),0 0 18px var(--glow-warm)}
@@ -460,7 +477,7 @@ html[data-sky="Day"] .camp{opacity:.55}
 .ctabar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:0 15px calc(16px + env(safe-area-inset-bottom));
   pointer-events:none;background:linear-gradient(180deg,transparent,rgba(6,20,26,.92) 58%)}
 .ctabar-in{max-width:520px;margin:0 auto;pointer-events:auto;position:relative}
-.cta{position:relative;width:100%;padding:18px;border-radius:24px;font-size:21px;font-weight:700;
+.cta{position:relative;width:100%;padding:18px;border-radius:29px 34px 26px 31px/31px 26px 34px 29px;font-size:21px;font-weight:700;
   display:flex;align-items:center;justify-content:center;gap:12px;overflow:hidden;color:#eafff1;
   --b:#1f3a2a;--b-l:#2f5340;--b-d:#0c1a12;
   box-shadow:0 0 0 2px var(--ink),0 7px 0 var(--b-d),0 7px 0 2px var(--ink),
@@ -565,26 +582,46 @@ html[data-sky="Day"] .trunk{opacity:.8}
 .pov.out{animation:povOut .5s ease forwards}
 @keyframes povOut{to{opacity:0}}
 
-.pov-stage{position:relative;width:260px;height:330px;display:flex;align-items:flex-start;justify-content:center}
+.pov-stage{position:relative;width:274px;height:356px;display:flex;align-items:flex-end;justify-content:center}
 
-/* printer */
-.printer{position:absolute;top:0;left:50%;transform:translateX(-50%);width:230px;z-index:3;
-  filter:drop-shadow(0 18px 26px rgba(0,0,0,.5))}
-.printer.start{animation:printerStart .3s cubic-bezier(.3,1.6,.5,1)}
-.printer.work{animation:printerWork .22s ease-in-out infinite}
-@keyframes printerStart{0%{transform:translateX(-50%) scale(1)}45%{transform:translateX(-50%) scale(1.06,.9)}100%{transform:translateX(-50%) scale(1)}}
-@keyframes printerWork{0%,100%{transform:translateX(-50%) translateY(0) rotate(-.3deg)}50%{transform:translateX(-50%) translateY(-1.5px) rotate(.3deg)}}
-.printer .led{animation:ledBlink .5s steps(1) infinite}
-@keyframes ledBlink{0%,49%{opacity:1}50%,100%{opacity:.25}}
+/* the campfire the traveller builds (keeps the .printer hooks the flow uses) */
+.printer{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:262px;z-index:3;
+  filter:drop-shadow(0 16px 24px rgba(0,0,0,.6))}
+.printer *{transform-box:fill-box}
+.printer .pfire{opacity:0;transform-origin:50% 100%;transform:scaleY(.14) scaleX(.8);
+  transition:opacity .4s ease,transform .55s cubic-bezier(.25,1.4,.5,1)}
+.printer .pember{opacity:.2;transition:opacity .5s ease}
+.printer .strikefx{opacity:0;transform-origin:0% 50%}
+.printer .arm{transform-origin:6% 20%;transition:rotate .25s cubic-bezier(.3,1.5,.5,1)}
+.printer .camper{transform-origin:50% 100%;transition:rotate .45s ease,translate .45s ease}
+
+.printer.start .arm{animation:flintStrike .34s ease-in-out 2}
+.printer.start .strikefx{animation:flintSpark .34s ease-out 2}
+@keyframes flintStrike{0%,100%{rotate:0deg}45%{rotate:-19deg}}
+@keyframes flintSpark{0%{opacity:0;scale:.5}40%{opacity:1;scale:1.15}100%{opacity:0;scale:1.4}}
+
+.printer.work .pfire,.printer.settle .pfire{opacity:1;transform:scaleY(1) scaleX(1)}
+.printer.work .pember,.printer.settle .pember{opacity:1}
+.printer.work .camper{rotate:4deg;translate:6px 0}      /* leaning in to blow on it */
+.printer.settle .camper{rotate:-2deg;translate:-2px 0}
+.printer.work .pf1,.printer.settle .pf1{animation:pflick 1.05s ease-in-out infinite alternate}
+.printer.work .pf2,.printer.settle .pf2{animation:pflick .74s ease-in-out -.2s infinite alternate}
+.printer.work .pf3,.printer.settle .pf3{animation:pflick .52s ease-in-out -.35s infinite alternate}
+.printer.work .pember,.printer.settle .pember{animation:emberGlow 1.7s ease-in-out infinite}
+@keyframes pflick{from{transform:scaleY(.9) scaleX(1.06) translateY(3px)}to{transform:scaleY(1.14) scaleX(.92) translateY(-4px)}}
+@keyframes emberGlow{0%,100%{opacity:.75}50%{opacity:1}}
 
 /* paper */
-.paper{position:absolute;top:104px;left:50%;width:186px;transform:translateX(-50%);z-index:2;
+.paper{position:absolute;bottom:96px;left:50%;width:186px;transform:translateX(-50%);z-index:2;
   border-radius:4px 4px 7px 7px;background:#fffdf8;color:#2b2016;overflow:hidden;
   box-shadow:0 14px 26px rgba(0,0,0,.42),0 0 0 1px rgba(0,0,0,.07);
   clip-path:inset(0 0 100% 0);padding:11px 12px 13px;box-sizing:border-box;
   font-family:'Sarabun',system-ui,sans-serif;text-align:left}
 .paper.print{animation:paperOut var(--pd,1500ms) cubic-bezier(.32,.05,.28,1) forwards}
-@keyframes paperOut{0%{clip-path:inset(0 0 100% 0)}100%{clip-path:inset(0 0 0 0)}}
+@keyframes paperOut{
+  0%{clip-path:inset(100% 0 0 0);transform:translateX(-50%) translateY(30px) scale(.9) rotate(2deg)}
+  70%{clip-path:inset(0 0 0 0);transform:translateX(-50%) translateY(-4px) scale(1.02) rotate(-1deg)}
+  100%{clip-path:inset(0 0 0 0);transform:translateX(-50%) translateY(0) scale(1) rotate(0)}}
 .paper.lit{box-shadow:0 14px 30px rgba(0,0,0,.42),0 0 34px 6px rgba(255,168,60,.85),0 0 0 1px rgba(255,190,90,.9)}
 .paper.burn{animation:paperBurn .75s ease-in forwards}
 @keyframes paperBurn{
@@ -682,22 +719,30 @@ html[data-sky="Day"] .trunk{opacity:.8}
     <g fill="#fff3c4"><path d="M4.6 3.2l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/><path d="M19.6 2.4l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z"/><circle cx="8.4" cy="1.9" r=".9"/></g>
   </symbol>
   <symbol id="i-crown" viewBox="0 0 24 24">
-    <path d="M3 18.4h18l1.5-11.6-5.8 4.2L12 3.6 7.3 11 1.5 6.8z" fill="#ffd66e" stroke="#7d5209" stroke-width="1.5" stroke-linejoin="round"/>
-    <path d="M3 18.4h18v2.4H3z" fill="#e0a32b" stroke="#7d5209" stroke-width="1.5" stroke-linejoin="round"/>
-    <circle cx="12" cy="13.4" r="1.7" fill="#f4742a"/><circle cx="6.4" cy="15" r="1.1" fill="#93d79b"/><circle cx="17.6" cy="15" r="1.1" fill="#a5d9ff"/>
+    <g fill="none" stroke="#e7c07a" stroke-width="1.6" stroke-linecap="round"><path d="M2.6 8.2L.9 5.2M21.4 8.2L23.1 5.2M12 4V1.4"/></g>
+    <path d="M2.4 7.8l4.8 3.6L12 3.6l4.8 7.8 4.8-3.6-1.9 9.8H4.3z" fill="#ffd66e" stroke="#5c3a06" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M4.3 17.6h15.4v2.4a1.8 1.8 0 01-1.8 1.8H6.1a1.8 1.8 0 01-1.8-1.8z" fill="#e0a32b" stroke="#5c3a06" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="12" cy="13.4" r="1.9" fill="#ff7a2a" stroke="#5c3a06" stroke-width="1.1"/>
+    <circle cx="6.8" cy="14.8" r="1.1" fill="#93d79b"/><circle cx="17.2" cy="14.8" r="1.1" fill="#a5dcff"/>
   </symbol>
   <symbol id="i-bolt" viewBox="0 0 24 24">
-    <path d="M12 1.4v2.8" stroke="#cbd9e6" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M8.4 4.4h7.2l1.8 2.8H6.6z" fill="#3c5568" stroke="#1c5378" stroke-width="1.3" stroke-linejoin="round"/>
-    <rect x="6.6" y="7.2" width="10.8" height="11.2" rx="2.4" fill="#22384a" stroke="#1c5378" stroke-width="1.5"/>
-    <rect x="8.6" y="9.2" width="6.8" height="7.4" rx="1.8" fill="#a5dcff"/>
-    <path d="M12 10.6c1.5 1.6 2.2 2.6 2.2 3.6 0 1.3-1 2.1-2.2 2.1s-2.2-.8-2.2-2.1c0-1 .7-2 2.2-3.6z" fill="#fff6dc"/>
-    <path d="M7.4 18.4h9.2l1.4 2.6H6z" fill="#3c5568" stroke="#1c5378" stroke-width="1.3" stroke-linejoin="round"/>
+    <circle cx="12" cy="13" r="8.6" fill="#a5dcff" opacity=".16"/>
+    <path d="M12 1.2v2.6" stroke="#cbd9e6" stroke-width="1.7" stroke-linecap="round"/>
+    <path d="M8.2 4h7.6l2 3H6.2z" fill="#42607a" stroke="#16405e" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M6.6 7h10.8v10.6H6.6z" fill="#1d3345" stroke="#16405e" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M8.6 9h6.8v6.6H8.6z" fill="#bfe6ff"/>
+    <path d="M12 10.2c1.6 1.8 2.3 2.9 2.3 4 0 1.4-1 2.3-2.3 2.3s-2.3-.9-2.3-2.3c0-1.1.7-2.2 2.3-4z" fill="#fff3c4"/>
+    <path d="M6.6 12.2h10.8" stroke="#16405e" stroke-width="1.2" opacity=".7"/>
+    <path d="M7 17.6h10l2.2 3H4.8z" fill="#42607a" stroke="#16405e" stroke-width="1.4" stroke-linejoin="round"/>
   </symbol>
   <symbol id="i-flame" viewBox="0 0 24 24">
-    <path d="M12 1.6c1.6 4.4-3.2 5.6-3.2 9.4 0 1.3.5 2.3 1.3 3-2-.4-3.3-2-3.3-4.2-1.9 1.9-2.6 3.8-2.6 5.8 0 3.8 3.7 5.9 7.8 5.9s7.8-2.1 7.8-5.9c0-5.4-4.2-8-7.8-14z" fill="#f4742a" stroke="#9c3806" stroke-width="1.4" stroke-linejoin="round"/>
-    <path d="M12 9.6c1.9 2.6 2.8 4.2 2.8 5.6 0 1.9-1.3 3.1-2.8 3.1s-2.8-1.2-2.8-3.1c0-1.4.9-3 2.8-5.6z" fill="#ffd66e"/>
-    <path d="M3.4 21.6l5.4-2.6M20.6 21.6l-5.4-2.6" stroke="#7d4f27" stroke-width="2.4" stroke-linecap="round"/>
+    <g stroke="#452c15" stroke-width="1.5" stroke-linejoin="round">
+      <path d="M2.4 19.2l9.2-4.6 1.6 3-9.2 4.6z" fill="#8a5c31"/>
+      <path d="M21.6 19.2l-9.2-4.6-1.6 3 9.2 4.6z" fill="#6a4120"/>
+    </g>
+    <path d="M12 2.2c1.5 4-2.9 5.2-2.9 8.6 0 1.1.4 2 1.1 2.6-1.8-.4-3-1.9-3-3.9C5.5 11.3 4.9 13 4.9 14.8c0 3.2 3.2 5 7.1 5s7.1-1.8 7.1-5c0-4.9-3.8-7.2-7.1-12.6z" fill="#f4742a" stroke="#9c3806" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M12 9.4c1.8 2.4 2.6 3.9 2.6 5.2 0 1.7-1.2 2.8-2.6 2.8s-2.6-1.1-2.6-2.8c0-1.3.8-2.8 2.6-5.2z" fill="#ffd66e"/>
+    <g fill="#ffcf5c"><circle cx="4.6" cy="6.4" r="1.2"/><circle cx="19.4" cy="5.2" r="1"/><circle cx="17.6" cy="9.4" r=".8"/></g>
   </symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.6l5 5L19.5 6.5" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4.5v15M4.5 12h15" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></symbol>
@@ -942,23 +987,41 @@ html[data-sky="Day"] .trunk{opacity:.8}
 <div class="pov" id="pov" aria-hidden="true">
   <div class="pov-stage">
     <div class="paper" id="povPaper"></div>
-    <svg class="printer" id="povPrinter" viewBox="0 0 230 150">
-      <rect x="26" y="8" width="178" height="30" rx="9" fill="#cfd8e0"/>
-      <rect x="34" y="14" width="162" height="16" rx="6" fill="#eef3f7"/>
-      <rect x="10" y="34" width="210" height="74" rx="17" fill="#f4f7fa"/>
-      <rect x="10" y="34" width="210" height="74" rx="17" fill="none" stroke="#b9c5d0" stroke-width="2.5"/>
-      <rect x="16" y="40" width="198" height="22" rx="11" fill="#ffffff" opacity=".9"/>
-      <rect x="44" y="66" width="142" height="15" rx="7" fill="#2f3a45"/>
-      <rect x="47" y="68.5" width="136" height="4" rx="2" fill="#4c5a68"/>
-      <circle class="led" cx="28" cy="74" r="5" fill="#4ade80"/>
-      <circle cx="200" cy="74" r="4" fill="#cbd5e0"/>
-      <rect x="150" y="88" width="26" height="6" rx="3" fill="#dbe3ea"/>
-      <rect x="182" y="88" width="14" height="6" rx="3" fill="#dbe3ea"/>
-      <rect x="4" y="104" width="222" height="26" rx="12" fill="#e2e9ef"/>
-      <rect x="4" y="104" width="222" height="26" rx="12" fill="none" stroke="#b9c5d0" stroke-width="2.5"/>
-      <rect x="70" y="112" width="90" height="9" rx="4.5" fill="#c3ced8"/>
-      <rect x="30" y="130" width="34" height="12" rx="6" fill="#aab7c3"/>
-      <rect x="166" y="130" width="34" height="12" rx="6" fill="#aab7c3"/>
+    <svg class="printer" id="povPrinter" viewBox="0 0 262 160">
+      <ellipse cx="150" cy="146" rx="100" ry="14" fill="#04121a" opacity=".6"/>
+      <g fill="#39474b" stroke="#1a2629" stroke-width="2.4">
+        <ellipse cx="96" cy="139" rx="17" ry="9"/><ellipse cx="136" cy="144" rx="19" ry="10"/>
+        <ellipse cx="178" cy="140" rx="17" ry="9"/><ellipse cx="208" cy="131" rx="14" ry="8"/>
+        <ellipse cx="80" cy="128" rx="13" ry="7"/>
+      </g>
+      <g stroke="#412a16" stroke-width="3" stroke-linejoin="round">
+        <path d="M96 133l62-25 7 12-62 25z" fill="#8a5c31"/>
+        <path d="M196 133l-62-25-7 12 62 25z" fill="#5f3a1c"/>
+        <path d="M114 139h62l-5 8h-52z" fill="#6a4120"/>
+      </g>
+      <ellipse class="pember" cx="146" cy="130" rx="32" ry="9" fill="#ff7a2a"/>
+      <g class="pfire">
+        <path class="pf pf1" d="M146 124c3-18-10-22-10-34 0 0 24 8 24 24 0 5-3 8-3 12 0 4 2 6 6 6 3 0 6-4 6-10 10 9 13 17 13 25 0 16-15 24-34 24s-34-8-34-24c0-10 4-19 13-26 0 5 3 10 9 12-4-3-6-8-6-13 0-7 5-12 16-20z" fill="#ff6a1e"/>
+        <path class="pf pf2" d="M146 128c2-11-7-14-7-22 0 0 16 6 16 16 0 3-2 5-2 7 0 3 1 4 4 4 2 0 4-2 4-7 6 6 9 11 9 16 0 11-10 16-24 16s-24-5-24-16c0-6 3-12 9-17 0 3 2 6 6 8-2-2-4-5-4-9 0-4 5-9 13-14z" fill="#ffb02e"/>
+        <path class="pf pf3" d="M146 134c1-6-4-9-4-13 0 0 10 3 10 10 0 2-1 3-1 4 0 1 1 2 2 2s3-1 3-4c4 3 6 7 6 10 0 6-6 9-15 9s-15-3-15-9c0-3 2-7 6-11 0 2 1 4 4 5-1-1-2-3-2-5 0-3 3-6 8-8z" fill="#fff3c4"/>
+      </g>
+      <g class="camper">
+        <ellipse cx="44" cy="142" rx="27" ry="7" fill="#04121a" opacity=".5"/>
+        <path d="M24 140q3-32 22-34 20 2 23 34z" fill="#2f5468" stroke="#13303f" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M30 140q16-6 32 0" fill="none" stroke="#13303f" stroke-width="2.2" opacity=".6"/>
+        <circle cx="47" cy="96" r="13.5" fill="#f0c99a" stroke="#8a5c31" stroke-width="2.6"/>
+        <circle cx="53" cy="97" r="2" fill="#2b2016"/>
+        <path d="M50 104q5 2 8-2" fill="none" stroke="#2b2016" stroke-width="1.9" stroke-linecap="round"/>
+        <path d="M33 96a14 14 0 0128 0q0 2.4-4 2.4-3-8-10-8t-10 8q-4 0-4-2.4z" fill="#3a6b7f" stroke="#13303f" stroke-width="2.6" stroke-linejoin="round"/>
+        <path d="M61 88q9-6 13 2-8 3-13-2z" fill="#3a6b7f" stroke="#13303f" stroke-width="2.4" stroke-linejoin="round"/>
+        <g class="arm">
+          <path d="M60 112q16-3 26 9" fill="none" stroke="#3a6b7f" stroke-width="9" stroke-linecap="round"/>
+          <path d="M86 121l11 7" stroke="#c9b48c" stroke-width="5.5" stroke-linecap="round"/>
+        </g>
+        <g class="strikefx" stroke="#ffd166" stroke-width="3.2" stroke-linecap="round">
+          <path d="M103 126l9-7M106 131l10-2M101 135l8 4"/>
+        </g>
+      </g>
     </svg>
   </div>
   <div class="pov-prog"><i id="povBar"></i></div>
@@ -1154,6 +1217,22 @@ function popText(x,y,text,color){
   t.style.cssText=`left:${x}px;top:${y}px;background:${color}`;
   fx.appendChild(t); setTimeout(()=>t.remove(),1150);
 }
+function fireBurst(x,y,o){
+  if(reduced) return;
+  const {count=7,spread=28,lift=46}=o||{};
+  const r=document.createElement("span"); r.className="heat-ring";
+  r.style.cssText=`left:${x}px;top:${y}px`;
+  fx.appendChild(r); setTimeout(()=>r.remove(),560);
+  for(let i=0;i<count;i++){
+    const f=document.createElement("span"); f.className="flametip";
+    const w=11+Math.random()*12;
+    f.style.cssText=`left:${x}px;top:${y}px;--fw:${w}px;--fh:${w*1.9}px;`+
+      `--dx:${(Math.random()*2-1)*spread}px;--dy:${-(lift+Math.random()*34)}px;`+
+      `--rz:${(Math.random()*20-10)}deg;--d:${(.5+Math.random()*.34)}s`;
+    fx.appendChild(f); setTimeout(()=>f.remove(),900);
+  }
+  sparks(x,y,{count:4,color:["#ffd06a","#ff8a3d","#fff3cf"],spread:30,up:22});
+}
 function energyWave(x,y){
   if(reduced) return;
   const w=document.createElement("span"); w.className="energywave";
@@ -1181,8 +1260,8 @@ function confetti(){
 document.addEventListener("pointerdown",(e)=>{
   const el=e.target.closest(".gbtn,.dorb,.emp,.chip,.del");
   if(!el) return;
-  squish(el); ring(e.clientX,e.clientY,APP_ACC);
-  sparks(e.clientX,e.clientY,{count:5,color:[APP_ACC,"#ffffff"],spread:30});
+  squish(el);
+  fireBurst(e.clientX,e.clientY,{count:el.classList.contains("dorb")?5:8});
 },{passive:true});
 
 /* ============================ DOCUMENT SKIN UI ============================ */
@@ -1613,13 +1692,18 @@ async function povOpen(){
   const {ov,paper,printer,bar,txt,suc,flame}=povEls();
   suc.className="pov-success"; flame.className="flame-layer"; flame.innerHTML="";
   paper.className="paper"; paper.innerHTML=paperMarkup();
-  bar.style.width="0%"; txt.textContent="กำลังเตรียมเอกสาร";
+  bar.style.width="0%"; txt.textContent="ก่อกองไฟ";
   ov.classList.remove("out"); ov.classList.add("on");
-  await sleep(120);
-  printer.classList.add("start");
-  await sleep(300);
-  printer.classList.remove("start"); printer.classList.add("work");
-  progress(22,"เครื่องพิมพ์เริ่มทำงาน");
+  await sleep(140);
+  printer.classList.add("start");                 /* strike the flint */
+  progress(14,"จุดไฟด้วยหินเหล็กไฟ");
+  const st=printer.getBoundingClientRect();
+  for(let i=0;i<2;i++) setTimeout(()=>sparks(st.left+st.width*0.42,st.top+st.height*0.8,
+    {count:7,color:["#ffd166","#ff8a3d","#fff3cf"],spread:38,up:10}),i*340);
+  await sleep(720);
+  printer.classList.remove("start"); printer.classList.add("work");   /* it catches */
+  fireBurst(st.left+st.width*0.56,st.top+st.height*0.82,{count:9,spread:34,lift:52});
+  progress(24,"ไฟติดแล้ว");
 }
 
 /* stage 3-6: paper feeds out with the scan light */
@@ -1628,13 +1712,14 @@ async function povPrint(){
   const dur=1500;
   paper.style.setProperty("--pd",dur+"ms");
   paper.classList.add("print");
-  progress(40,"กำลังพิมพ์ฟอร์ม OT");
-  await sleep(dur*0.55);
-  progress(66,"กำลังพิมพ์ฟอร์ม OT");
-  await sleep(dur*0.45+80);
-  povEls().printer.classList.remove("work");
+  progress(42,"ไฟโหมขึ้น");
+  await sleep(dur*0.4);
+  progress(62,"ใบ OT โผล่ขึ้นจากกองไฟ");
+  await sleep(dur*0.6+80);
+  const pr=povEls().printer;
+  pr.classList.remove("work"); pr.classList.add("settle");
   paper.classList.add("lit");
-  progress(80,"พิมพ์เสร็จแล้ว");
+  progress(80,"ใบ OT พร้อมส่ง");
   /* edge sparks around the sheet */
   const r=paper.getBoundingClientRect();
   for(let i=0;i<16;i++){
@@ -1717,13 +1802,13 @@ async function povClose(stopEmbers){
   ov.classList.remove("on","out");
   suc.className="pov-success";
   flame.className="flame-layer"; flame.innerHTML="";
-  printer.classList.remove("work","start");
+  printer.classList.remove("work","start","settle");
   paper.className="paper"; paper.style.removeProperty("--pd");
 }
 
 async function povAbort(msg){
   const {ov,printer,paper,flame,suc}=povEls();
-  printer.classList.remove("work","start");
+  printer.classList.remove("work","start","settle");
   ov.classList.add("out");
   await sleep(480);
   ov.classList.remove("on","out");
