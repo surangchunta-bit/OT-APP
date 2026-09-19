@@ -226,7 +226,7 @@ html[data-sky="Day"] .camp{opacity:.55}
 @keyframes ewave{to{transform:translate(-50%,-50%) scale(9);opacity:0;border-width:1px}}
 
 /* ============================ WOODEN PANELS ============================ */
-.wrap{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:20px 15px 172px}
+.wrap{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:52px 15px 172px}
 .panel{position:relative;border-radius:26px;padding:8px;margin-bottom:20px;
   background:
     repeating-linear-gradient(97deg,rgba(0,0,0,.14) 0 3px,rgba(255,255,255,.035) 3px 7px),
@@ -315,19 +315,6 @@ html[data-sky="Day"] .camp{opacity:.55}
 .sign-deco.shroom{bottom:-14px;left:12px;width:38px}
 .sign-deco.shroom2{bottom:-12px;right:16px;width:28px}
 
-/* music button = hanging lantern */
-.music-btn{position:fixed;top:14px;right:14px;z-index:60;width:52px;height:52px;border-radius:50%;padding:0;
-  display:flex;align-items:center;justify-content:center;--b:#c9762a;--b-l:#ffc06b;--b-d:#5e2f08;
-  box-shadow:0 5px 0 var(--b-d),0 0 20px var(--glow-warm),inset 0 2px 0 rgba(255,255,255,.4)}
-.music-btn.off{--b:#2c3f34;--b-l:#43584a;--b-d:#111c17;box-shadow:0 5px 0 var(--b-d),inset 0 2px 0 rgba(255,255,255,.15)}
-.music-btn svg{width:24px;height:24px;color:#fff;filter:drop-shadow(0 2px 1px rgba(0,0,0,.4))}
-.music-btn .eq{display:flex;align-items:flex-end;gap:2.5px;height:19px}
-.music-btn .eq i{width:3.5px;border-radius:2px;background:#fff5dd;transform-origin:bottom;animation:eqbar .8s ease-in-out infinite}
-.music-btn .eq i:nth-child(1){height:55%}
-.music-btn .eq i:nth-child(2){height:100%;animation-delay:.18s}
-.music-btn .eq i:nth-child(3){height:42%;animation-delay:.36s}
-.music-btn .eq i:nth-child(4){height:78%;animation-delay:.09s}
-@keyframes eqbar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
 
 /* ============================ DOCUMENT SKINS = CRYSTALS ============================ */
 .docskins{display:grid;grid-template-columns:repeat(8,1fr);gap:9px;max-width:400px;margin:0 auto}
@@ -504,6 +491,51 @@ html[data-sky="Day"] .camp{opacity:.55}
   background:linear-gradient(180deg,rgba(255,150,70,0) 0%,rgba(255,120,40,.38) 48%,rgba(96,48,96,.34) 100%)}
 .scene.shifting .dusk{opacity:1}
 
+
+/* ============================ DRAWN DECORATIONS ============================ */
+/* moss / branch sprigs sitting on the top edge of every wooden panel */
+.pdeco{position:absolute;z-index:4;width:78px;pointer-events:none;filter:drop-shadow(0 3px 3px rgba(0,0,0,.45));
+  animation:sprigsway 7s ease-in-out infinite;transform-origin:50% 100%}
+.pdeco.a{top:-19px;right:30px}
+.pdeco.b{top:-17px;left:32px;transform:scaleX(-1);animation-duration:8.5s}
+@keyframes sprigsway{0%,100%{rotate:-2deg}50%{rotate:2deg}}
+
+/* lantern garland strung across the top of the clearing */
+.garland{position:absolute;top:0;left:0;width:100%;height:76px;transition:opacity 1.2s ease}
+.glant{transform-origin:50% 0;animation:lanternSway 6s ease-in-out infinite}
+.glant.d1{animation-duration:7.2s;animation-delay:-1.1s}
+.glant.d2{animation-duration:5.4s;animation-delay:-2.3s}
+.glant.d3{animation-duration:6.6s;animation-delay:-.7s}
+.glant.d4{animation-duration:7.8s;animation-delay:-3.1s}
+.glant rect:last-child{filter:drop-shadow(0 0 7px rgba(255,190,90,.95))}
+html[data-sky="Day"] .glant rect:last-child{filter:none}
+
+/* foreground tree trunks framing the clearing */
+.trunk{position:absolute;bottom:0;height:100%;width:120px;opacity:.95;transition:opacity 1.2s ease}
+.trunk.tl{left:0;transform:translate3d(0,calc(var(--sc) * -8px),0)}
+.trunk.tr{right:0;transform:translate3d(0,calc(var(--sc) * -8px),0)}
+html[data-sky="Day"] .trunk{opacity:.8}
+@media (max-width:480px){ .trunk{width:74px;opacity:.85} }
+
+/* name tokens = carved wooden badges warmed by the fire */
+.emp .av,.row .av{position:relative;background-clip:padding-box;
+  box-shadow:0 0 0 2.5px var(--wood-mid),0 0 0 4px rgba(0,0,0,.45),
+    inset 0 3px 0 rgba(255,255,255,.4),inset 0 -5px 8px rgba(0,0,0,.4),0 0 14px rgba(255,150,70,.28)}
+.emp .av::after,.row .av::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 32% 24%,rgba(255,244,214,.34),transparent 44%),
+             radial-gradient(circle at 50% 118%,rgba(255,138,61,.26),transparent 58%)}
+.emp.on .av{box-shadow:0 0 0 2.5px var(--acc),0 0 0 4px rgba(0,0,0,.45),
+  inset 0 3px 0 rgba(255,255,255,.45),inset 0 -5px 8px rgba(0,0,0,.4),0 0 22px var(--glow-warm)}
+
+/* carved wood grain on every plaque-style control */
+.gbtn.ghost,.chip,.emp,.teambtn,.addbtn{
+  background-image:repeating-linear-gradient(93deg,rgba(0,0,0,.13) 0 3px,rgba(255,255,255,.035) 3px 8px),
+    linear-gradient(180deg,var(--b-l),var(--b))}
+.gbtn.ghost{box-shadow:0 6px 0 var(--b-d),0 10px 16px -8px rgba(0,0,0,.6),
+  inset 0 0 0 1.5px rgba(255,236,196,.1),inset 0 2px 0 rgba(255,255,255,.14),inset 0 -4px 0 rgba(0,0,0,.28)}
+.addbtn{background-image:repeating-linear-gradient(93deg,rgba(0,0,0,.12) 0 3px,rgba(255,255,255,.05) 3px 8px),
+  linear-gradient(180deg,var(--b-l),var(--b))}
+
 /* ============================================================
    PRINT → BURN → SUCCESS OVERLAY
    ============================================================ */
@@ -620,18 +652,51 @@ html[data-sky="Day"] .camp{opacity:.55}
 <body>
 
 <svg class="sr" aria-hidden="true"><defs>
-  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5.2" fill="#fff3b0" stroke="#e08c00" stroke-width="1.6"/><g stroke="#ffd24d" stroke-width="2.4" stroke-linecap="round"><path d="M12 1.6v3M12 19.4v3M1.6 12h3M19.4 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1"/></g></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.6 8.6 0 019.5 4 8.6 8.6 0 1020 14.5z" fill="#e8ecff" stroke="#7f8ce0" stroke-width="1.5"/><g fill="#fff8c4"><circle cx="6" cy="5" r="1.3"/><circle cx="17" cy="3.6" r="1"/><circle cx="21" cy="8" r=".8"/></g></symbol>
-  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 18h18l1.4-11-5.6 4L12 4 7.2 11 1.6 7z" fill="#ffd54a" stroke="#b57e00" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="13" r="1.5" fill="#ff6b6b"/></symbol>
-  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.5 2L4 13.6h6L9.6 22 20 9.6h-6.4z" fill="#7fe3ff" stroke="#0d7fa8" stroke-width="1.5" stroke-linejoin="round"/></symbol>
-  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2c1.6 4.5-3.4 5.4-3.4 9.4 0 1.3.5 2.4 1.3 3.2-2.1-.4-3.4-2-3.4-4.3C4.4 12 3.6 14 3.6 16c0 3.9 3.8 6 8.4 6s8.4-2.1 8.4-6c0-5.6-4.4-8.2-8.4-14z" fill="#ffb03a" stroke="#c95a00" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24">
+    <g fill="#ffb02e"><path d="M12 .6l1.7 4.2h-3.4zM12 23.4l-1.7-4.2h3.4zM.6 12l4.2-1.7v3.4zM23.4 12l-4.2 1.7v-3.4zM4 4l4.2 1.3-2.9 2.9zM20 20l-4.2-1.3 2.9-2.9zM20 4l-1.3 4.2-2.9-2.9zM4 20l1.3-4.2 2.9 2.9z"/></g>
+    <circle cx="12" cy="12" r="5.6" fill="#ffd166" stroke="#c9770a" stroke-width="1.3"/>
+    <path d="M12 8.6c2 1.8 3 3.2 3 4.6 0 1.7-1.4 2.9-3 2.9s-3-1.2-3-2.9c0-1.4 1-2.8 3-4.6z" fill="#fff3c4"/>
+  </symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24">
+    <path d="M20.4 15A9 9 0 019.2 3.6 9 9 0 1020.4 15z" fill="#eaf3ff" stroke="#7fa9dd" stroke-width="1.4" stroke-linejoin="round"/>
+    <g fill="#cfe0f2" opacity=".85"><circle cx="13.5" cy="15.5" r="2.1"/><circle cx="17.6" cy="11.4" r="1.3"/><circle cx="10.6" cy="18.6" r="1"/></g>
+    <g fill="#fff3c4"><path d="M4.6 3.2l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/><path d="M19.6 2.4l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z"/><circle cx="8.4" cy="1.9" r=".9"/></g>
+  </symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24">
+    <path d="M3 18.4h18l1.5-11.6-5.8 4.2L12 3.6 7.3 11 1.5 6.8z" fill="#ffd66e" stroke="#7d5209" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M3 18.4h18v2.4H3z" fill="#e0a32b" stroke="#7d5209" stroke-width="1.5" stroke-linejoin="round"/>
+    <circle cx="12" cy="13.4" r="1.7" fill="#f4742a"/><circle cx="6.4" cy="15" r="1.1" fill="#93d79b"/><circle cx="17.6" cy="15" r="1.1" fill="#a5d9ff"/>
+  </symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24">
+    <path d="M12 1.4v2.8" stroke="#cbd9e6" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M8.4 4.4h7.2l1.8 2.8H6.6z" fill="#3c5568" stroke="#1c5378" stroke-width="1.3" stroke-linejoin="round"/>
+    <rect x="6.6" y="7.2" width="10.8" height="11.2" rx="2.4" fill="#22384a" stroke="#1c5378" stroke-width="1.5"/>
+    <rect x="8.6" y="9.2" width="6.8" height="7.4" rx="1.8" fill="#a5dcff"/>
+    <path d="M12 10.6c1.5 1.6 2.2 2.6 2.2 3.6 0 1.3-1 2.1-2.2 2.1s-2.2-.8-2.2-2.1c0-1 .7-2 2.2-3.6z" fill="#fff6dc"/>
+    <path d="M7.4 18.4h9.2l1.4 2.6H6z" fill="#3c5568" stroke="#1c5378" stroke-width="1.3" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24">
+    <path d="M12 1.6c1.6 4.4-3.2 5.6-3.2 9.4 0 1.3.5 2.3 1.3 3-2-.4-3.3-2-3.3-4.2-1.9 1.9-2.6 3.8-2.6 5.8 0 3.8 3.7 5.9 7.8 5.9s7.8-2.1 7.8-5.9c0-5.4-4.2-8-7.8-14z" fill="#f4742a" stroke="#9c3806" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M12 9.6c1.9 2.6 2.8 4.2 2.8 5.6 0 1.9-1.3 3.1-2.8 3.1s-2.8-1.2-2.8-3.1c0-1.4.9-3 2.8-5.6z" fill="#ffd66e"/>
+    <path d="M3.4 21.6l5.4-2.6M20.6 21.6l-5.4-2.6" stroke="#7d4f27" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.6l5 5L19.5 6.5" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4.5v15M4.5 12h15" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></symbol>
-  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M12 1.8c3.4 2.6 5.2 6.3 5.2 10.2l-1.7 3.6H8.5L6.8 12C6.8 8.1 8.6 4.4 12 1.8z" fill="#fff" stroke="#0a5c2a" stroke-width="1.4" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.1" fill="#7fe3ff" stroke="#0a5c2a" stroke-width="1.2"/><path d="M8.5 15.6L5 18l1.6-5.2M15.5 15.6L19 18l-1.6-5.2" fill="#ff8a4a" stroke="#0a5c2a" stroke-width="1.3" stroke-linejoin="round"/><path d="M10.2 17.6c.5 2 .9 3.2 1.8 4.6.9-1.4 1.3-2.6 1.8-4.6z" fill="#ffd24d" stroke="#0a5c2a" stroke-width="1.2" stroke-linejoin="round"/></symbol>
-  <symbol id="i-clip" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 9h7M8.5 13h7M8.5 17h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3c-5 0-9 3.8-9 8.5S7 20 12 20c1.4 0 2.2-.9 2.2-2 0-1-.8-1.6-.8-2.5 0-.8.7-1.5 1.6-1.5H17c2.2 0 4-1.8 4-4C21 6.2 17 3 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="11" r="1.3" fill="currentColor"/><circle cx="11" cy="7.5" r="1.3" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.3" fill="currentColor"/></symbol>
-  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 4.5L6.5 8.5H3v7h3.5L11 19.5z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24">
+    <path d="M21.6 2.6L3 10.2c-.9.4-.8 1.7.2 1.9l5.9 1.4 1.4 5.9c.2 1 1.5 1.1 1.9.2z" fill="#fff4dc" stroke="#7a4a1c" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M21.6 2.6L9.1 13.5l1.4 5.9" fill="#e8d3ac" stroke="#7a4a1c" stroke-width="1.2" stroke-linejoin="round"/>
+    <g fill="#ff9d4d"><circle cx="3.2" cy="16.8" r="1.5"/><circle cx="6.2" cy="19.4" r="1"/><circle cx="2.2" cy="21" r=".8"/></g>
+  </symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24">
+    <path d="M6.6 2.6h11a2.6 2.6 0 012.6 2.6v13.6a2.6 2.6 0 01-2.6 2.6h-11A2.6 2.6 0 014 18.8V5.2a2.6 2.6 0 012.6-2.6z" fill="#f3e3c4" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>
+    <path d="M8.2 7.6h7.6M8.2 11.6h7.6M8.2 15.6h4.6" stroke="#8a5c31" stroke-width="1.8" stroke-linecap="round"/>
+    <circle cx="12" cy="19.2" r="1.1" fill="#f4742a"/>
+  </symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24">
+    <path d="M12 2.6c-5.2 0-9.4 4-9.4 8.9s4.2 8.9 9.4 8.9c1.5 0 2.4-1 2.4-2.1 0-1-.9-1.7-.9-2.6 0-.9.8-1.6 1.7-1.6h1.6c2.3 0 4.2-1.9 4.2-4.2 0-4.1-4.2-7.3-9-7.3z" fill="#8a5c31" stroke="#3a2513" stroke-width="1.6" stroke-linejoin="round"/>
+    <circle cx="7.4" cy="11.2" r="1.6" fill="#a5dcff"/><circle cx="11" cy="7.4" r="1.6" fill="#93d79b"/><circle cx="15.6" cy="8.6" r="1.6" fill="#f4742a"/>
+  </symbol>
   <symbol id="i-gear" viewBox="0 0 100 100"><path fill="currentColor" d="M50 32a18 18 0 100 36 18 18 0 000-36zm0 27a9 9 0 110-18 9 9 0 010 18zM54 4h-8l-1.6 8.6a34 34 0 00-7.2 3l-7.1-5L18 22l5 7.1a34 34 0 00-3 7.2L11.4 38v8L20 47.6a34 34 0 003 7.2l-5 7.1L28 74l7.1-5a34 34 0 007.2 3L46 96h8l1.6-8.6a34 34 0 007.2-3l7.1 5L82 74l-5-7.1a34 34 0 003-7.2L96 46v-8l-8.6-1.6a34 34 0 00-3-7.2l5-7.1L72 18l-7.1 5a34 34 0 00-7.2-3z"/></symbol>
   <symbol id="i-rope" viewBox="0 0 200 30"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
     <path d="M12 28Q44 8 98 9"/><path d="M188 28Q156 8 102 9"/>
@@ -679,6 +744,19 @@ html[data-sky="Day"] .camp{opacity:.55}
       <path d="M82 50q-14-4-9-14 13 2 9 14z"/><path d="M88 62q13-5 16 5-13 5-16-5z"/>
       <path d="M66 74q-13-3-9-13 12 2 9 13z"/></g>
     <circle cx="118" cy="30" r="3.5" fill="#ff8a3d" opacity=".9"/>
+  </symbol>
+  <symbol id="i-moss" viewBox="0 0 80 40">
+    <path d="M6 40c0-9 7-15 15-15 2 0 4 .4 6 1.2C30 18 37 13 45 13c11 0 19 8 19 18 0 3-.6 6-1.8 9z" fill="#3f8145"/>
+    <path d="M14 40c0-6 5-10 11-10 8 0 12 5 12 11z" fill="#4f9c52"/>
+    <g fill="#5fb262"><path d="M52 24q-13-5-8-14 12 2 8 14z"/><path d="M60 30q12-5 15 4-12 5-15-4z"/></g>
+    <g transform="translate(60 20) scale(.42)"><use href="#i-shroom" width="40" height="40"/></g>
+    <circle cx="30" cy="27" r="2.2" fill="#ffd66e" opacity=".8"/>
+  </symbol>
+  <symbol id="i-branch" viewBox="0 0 80 40">
+    <path d="M2 36Q26 34 46 18T78 6" fill="none" stroke="#5c4322" stroke-width="4" stroke-linecap="round"/>
+    <g fill="#4f9c52"><path d="M22 32q-11-9-2-16 11 4 2 16z"/><path d="M40 22q-4-13 7-15 5 11-7 15z"/><path d="M58 12q2-13 13-12-1 12-13 12z"/>
+      <path d="M30 37q11-7 16 2-11 6-16-2z" fill="#3f8145"/><path d="M48 25q12-6 16 4-12 5-16-4z" fill="#3f8145"/></g>
+    <circle cx="70" cy="9" r="3.4" fill="#ff9d4d"/>
   </symbol>
 </defs></svg>
 
@@ -744,6 +822,27 @@ html[data-sky="Day"] .camp{opacity:.55}
   <svg class="deco d-left" viewBox="0 0 90 80" aria-hidden="true"><use href="#i-shroom-cluster"/></svg>
   <svg class="deco d-right" viewBox="0 0 80 72" aria-hidden="true"><use href="#i-stones"/></svg>
 
+  <svg class="garland" viewBox="0 0 420 70" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-4 8Q104 44 210 30T424 8" fill="none" stroke="#5c4322" stroke-width="3"/>
+    <g class="glant"><path d="M62 30v8" stroke="#5c4322" stroke-width="2"/><path d="M55 38h14l3 5H52z" fill="#3a2a17"/><rect x="54" y="43" width="16" height="17" rx="4" fill="#2a1d10"/><rect x="57" y="46" width="10" height="11" rx="3" fill="#ffc861"/></g>
+    <g class="glant d1"><path d="M138 36v8" stroke="#5c4322" stroke-width="2"/><path d="M131 44h14l3 5h-20z" fill="#3a2a17"/><rect x="130" y="49" width="16" height="17" rx="4" fill="#2a1d10"/><rect x="133" y="52" width="10" height="11" rx="3" fill="#ffc861"/></g>
+    <g class="glant d2"><path d="M212 31v8" stroke="#5c4322" stroke-width="2"/><path d="M205 39h14l3 5h-20z" fill="#3a2a17"/><rect x="204" y="44" width="16" height="17" rx="4" fill="#2a1d10"/><rect x="207" y="47" width="10" height="11" rx="3" fill="#ffc861"/></g>
+    <g class="glant d3"><path d="M288 34v8" stroke="#5c4322" stroke-width="2"/><path d="M281 42h14l3 5h-20z" fill="#3a2a17"/><rect x="280" y="47" width="16" height="17" rx="4" fill="#2a1d10"/><rect x="283" y="50" width="10" height="11" rx="3" fill="#ffc861"/></g>
+    <g class="glant d4"><path d="M362 22v8" stroke="#5c4322" stroke-width="2"/><path d="M355 30h14l3 5h-20z" fill="#3a2a17"/><rect x="354" y="35" width="16" height="17" rx="4" fill="#2a1d10"/><rect x="357" y="38" width="10" height="11" rx="3" fill="#ffc861"/></g>
+  </svg>
+  <svg class="trunk tl" viewBox="0 0 120 600" preserveAspectRatio="xMinYMax slice" aria-hidden="true">
+    <path d="M0 600V0h54c-10 96-6 192 4 288s12 208-2 312z" fill="#0a1a16"/>
+    <g stroke="#14312a" stroke-width="5" fill="none"><path d="M22 60v480M40 120v420"/></g>
+    <path d="M54 150q34-26 62-14-26 26-62 22z" fill="#1d3b2c"/>
+    <path d="M50 330q30-22 56-10-24 24-56 20z" fill="#1d3b2c"/>
+    <g transform="translate(6 520) scale(.9)"><use href="#i-shroom" width="40" height="40"/></g>
+  </svg>
+  <svg class="trunk tr" viewBox="0 0 120 600" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
+    <path d="M120 600V0H62c10 96 6 192-4 288s-12 208 2 312z" fill="#0a1a16"/>
+    <g stroke="#14312a" stroke-width="5" fill="none"><path d="M96 80v460M80 150v390"/></g>
+    <path d="M62 220q-34-26-62-14 26 26 62 22z" fill="#1d3b2c"/>
+    <path d="M66 420q-30-22-56-10 24 24 56 20z" fill="#1d3b2c"/>
+  </svg>
   <div class="dusk"></div>
   <div class="wxdim"></div>
   <canvas class="wx" id="wxCanvas"></canvas>
@@ -751,8 +850,6 @@ html[data-sky="Day"] .camp{opacity:.55}
 </div>
 
 <div class="fx" id="fx" aria-hidden="true"></div>
-
-<button class="gbtn music-btn" id="musicBtn" aria-label="เปิด/ปิดเพลง" aria-pressed="false"></button>
 
 <div class="wrap">
 
@@ -769,14 +866,14 @@ html[data-sky="Day"] .camp{opacity:.55}
     </div>
   </header>
 
-  <section class="panel" style="--fd:4.8s"><div class="panel-in">
+  <section class="panel" style="--fd:4.8s"><svg class="pdeco a" viewBox="0 0 80 40" aria-hidden="true"><use href="#i-moss"/></svg><div class="panel-in">
     <div class="head-label"><svg style="width:23px;height:23px;color:var(--acc)"><use href="#i-palette"/></svg> สกินเอกสาร</div>
     <div class="hint">เปลี่ยนสีเฉพาะไฟล์รูปที่ส่งเข้า LINE — หน้าตาแอปไม่เปลี่ยน</div>
     <div class="docskins" id="docSkins"></div>
     <div class="docname" id="docName"></div>
   </div></section>
 
-  <section class="panel" style="--fd:4.2s"><div class="panel-in">
+  <section class="panel" style="--fd:4.2s"><svg class="pdeco b" viewBox="0 0 80 40" aria-hidden="true"><use href="#i-branch"/></svg><div class="panel-in">
     <div class="head-label"><span class="step-chip">1</span> เลือกกะ</div>
     <div class="grid2" id="shiftChoices">
       <button class="gbtn shiftbtn day" data-shift="Day"><svg class="ico"><use href="#i-sun"/></svg><span>กะกลางวัน</span></button>
@@ -784,12 +881,12 @@ html[data-sky="Day"] .camp{opacity:.55}
     </div>
   </div></section>
 
-  <section class="panel" style="--fd:5.1s"><div class="panel-in">
+  <section class="panel" style="--fd:5.1s"><svg class="pdeco a" viewBox="0 0 80 40" aria-hidden="true"><use href="#i-moss"/></svg><div class="panel-in">
     <div class="head-label"><span class="step-chip">2</span> ทีมหลัก</div>
     <div class="grid3" id="mainTeamChoices"></div>
   </div></section>
 
-  <section class="panel" style="--fd:4.5s"><div class="panel-in">
+  <section class="panel" style="--fd:4.5s"><svg class="pdeco b" viewBox="0 0 80 40" aria-hidden="true"><use href="#i-branch"/></svg><div class="panel-in">
     <div class="head-label"><span class="step-chip">3</span> เลือกพนักงานและประเภท OT</div>
     <div class="chips" id="teamTabs" style="grid-template-columns:repeat(3,1fr)"></div>
     <div class="mini-label">พนักงาน</div>
@@ -800,12 +897,12 @@ html[data-sky="Day"] .camp{opacity:.55}
     <button class="gbtn addbtn" id="addBtn"><svg><use href="#i-plus"/></svg> เพิ่มลงตาราง</button>
   </div></section>
 
-  <section class="panel" style="--fd:4.9s"><div class="panel-in">
+  <section class="panel" style="--fd:4.9s"><svg class="pdeco a" viewBox="0 0 80 40" aria-hidden="true"><use href="#i-moss"/></svg><div class="panel-in">
     <div class="head-label"><span class="step-chip">4</span> วันที่</div>
     <input type="date" id="dateInput" class="dateInput" />
   </div></section>
 
-  <section class="panel" style="--fd:4.3s"><div class="panel-in">
+  <section class="panel" style="--fd:4.3s"><svg class="pdeco b" viewBox="0 0 80 40" aria-hidden="true"><use href="#i-branch"/></svg><div class="panel-in">
     <div class="head-label"><svg style="width:22px;height:22px;color:var(--acc)"><use href="#i-clip"/></svg> รายการที่เพิ่ม</div>
     <div id="previewList"></div>
   </div></section>
@@ -894,9 +991,9 @@ const OT_RULES = {
 };
 const OT_TYPE_KEYS = ["D","N","H/D","H/N","S/D","S/N","สลับ","ลา"];
 const TEAM_SKIN = {
-  A:{icon:"#i-crown",b:"#a855f7",l:"#d0a6ff",d:"#6b21a8"},
-  B:{icon:"#i-bolt", b:"#1e9fe0",l:"#7fd8ff",d:"#0a628f"},
-  C:{icon:"#i-flame",b:"#f97316",l:"#ffb96b",d:"#b03e00"},
+  A:{icon:"#i-crown",b:"#e0a32b",l:"#ffdb84",d:"#7d5209"},
+  B:{icon:"#i-bolt", b:"#4c9fd6",l:"#a5dcff",d:"#1c5378"},
+  C:{icon:"#i-flame",b:"#f4742a",l:"#ffb26b",d:"#9c3806"},
 };
 
 /* ============================ 24 DOCUMENT SKINS ============================ */
@@ -987,7 +1084,8 @@ const $ = (id)=>document.getElementById(id);
 const initials = (n)=>n.slice(0,2).toUpperCase();
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const APP_ACC = "#ff7a3d", APP_ACC_D = "#c14413";
-const AV=[["#f97316","#f43f5e"],["#06b6d4","#3b82f6"],["#22c55e","#14b8a6"],["#8b5cf6","#ec4899"],["#eab308","#f97316"],["#0ea5e9","#6366f1"]];
+/* campfire palette for the name tokens: ember, lantern, moss, moonlight, wood, night bloom */
+const AV=[["#ffa657","#c9401a"],["#ffd66e","#bf8412"],["#93d79b","#377f45"],["#a5d9ff","#356ea3"],["#dcae76","#7d4f27"],["#c6aef0","#61479b"]];
 function avatarGradient(code){ let s=0; for(const c of code) s+=c.charCodeAt(0); const p=AV[s%AV.length]; return `linear-gradient(160deg, ${p[0]}, ${p[1]})`; }
 function centerOf(el){ const r=el.getBoundingClientRect(); return {x:r.left+r.width/2,y:r.top+r.height/2}; }
 
@@ -1054,162 +1152,6 @@ document.addEventListener("pointerdown",(e)=>{
   squish(el); ring(e.clientX,e.clientY,APP_ACC);
   sparks(e.clientX,e.clientY,{count:5,color:[APP_ACC,"#ffffff"],spread:30});
 },{passive:true});
-
-/* ============================ BACKGROUND MUSIC ============================
-   warm 4-chord ambient loop (Fmaj7 · Cmaj9 · Am7 · G6) with soft bells and a
-   faint machine-room breath. default ON at 45%.
-========================================================================== */
-const music = { ctx:null, master:null, noise:null, on:false, timer:null, target:0.45 };
-const BAR = 3.4;
-const PROG = [
-  { pad:[174.61,261.63,329.63,440.00], arp:[349.23,440.00,523.25,659.25] }, /* Fmaj7 */
-  { pad:[130.81,246.94,329.63,392.00], arp:[392.00,493.88,587.33,659.25] }, /* Cmaj9 */
-  { pad:[220.00,261.63,329.63,392.00], arp:[440.00,523.25,659.25,783.99] }, /* Am7   */
-  { pad:[196.00,246.94,293.66,392.00], arp:[392.00,493.88,587.33,698.46] }, /* G6    */
-];
-
-function initAudio(){
-  if(music.ctx) return;
-  const AC = window.AudioContext||window.webkitAudioContext;
-  if(!AC) return;
-  music.ctx = new AC();
-  music.master = music.ctx.createGain();
-  music.master.gain.value = 0;
-  const lp = music.ctx.createBiquadFilter();
-  lp.type="lowpass"; lp.frequency.value=2400; lp.Q.value=0.5;
-  music.master.connect(lp);
-  if(music.ctx.createDynamicsCompressor){
-    const comp=music.ctx.createDynamicsCompressor();
-    comp.threshold.value=-16; comp.ratio.value=4;
-    lp.connect(comp); comp.connect(music.ctx.destination);
-  }else{
-    lp.connect(music.ctx.destination);
-  }
-  const n=Math.floor(music.ctx.sampleRate*2), buf=music.ctx.createBuffer(1,n,music.ctx.sampleRate), d=buf.getChannelData(0);
-  for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*0.5;
-  music.noise=buf;
-}
-function padChord(freqs,t,dur){
-  const c=music.ctx;
-  freqs.forEach((f,i)=>{
-    const o=c.createOscillator(), g=c.createGain();
-    o.type = i===0 ? "sine" : "triangle";
-    o.frequency.value=f; o.detune.value = i%2 ? 7 : -7;
-    g.gain.setValueAtTime(0.0001,t);
-    g.gain.linearRampToValueAtTime(0.042,t+1.0);
-    g.gain.linearRampToValueAtTime(0.030,t+dur*0.65);
-    g.gain.linearRampToValueAtTime(0.0001,t+dur);
-    o.connect(g); g.connect(music.master);
-    o.start(t); o.stop(t+dur+0.05);
-  });
-}
-function bell(f,t,dur,gain){
-  const c=music.ctx;
-  const o=c.createOscillator(), o2=c.createOscillator(), g=c.createGain(), g2=c.createGain();
-  o.type="triangle"; o2.type="sine";
-  o.frequency.value=f; o2.frequency.value=f*2.01; g2.gain.value=0.16;
-  g.gain.setValueAtTime(0.0001,t);
-  g.gain.exponentialRampToValueAtTime(gain,t+0.02);
-  g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
-  o.connect(g); o2.connect(g2); g2.connect(g); g.connect(music.master);
-  o.start(t); o2.start(t); o.stop(t+dur); o2.stop(t+dur);
-}
-function breath(t,dur){
-  const c=music.ctx;
-  if(!music.noise) return;
-  const src=c.createBufferSource(); src.buffer=music.noise; src.loop=true;
-  const bp=c.createBiquadFilter(); bp.type="bandpass"; bp.frequency.value=540; bp.Q.value=0.9;
-  const g=c.createGain();
-  g.gain.setValueAtTime(0.0001,t);
-  g.gain.linearRampToValueAtTime(0.011,t+dur*0.45);
-  g.gain.linearRampToValueAtTime(0.0001,t+dur);
-  src.connect(bp); bp.connect(g); g.connect(music.master);
-  src.start(t); src.stop(t+dur+0.05);
-}
-function loopMusic(){
-  if(!music.on||!music.ctx) return;
-  const c=music.ctx;
-  let t=c.currentTime+0.2;
-  PROG.forEach((ch,bi)=>{
-    padChord(ch.pad,t,BAR);
-    breath(t+BAR*0.2,BAR*0.72);
-    [0,0.58,1.2,1.72,2.3,2.9].forEach((off,i)=>{
-      if(Math.random()>0.26){
-        const n=ch.arp[(i+bi)%ch.arp.length]*(Math.random()>0.82?0.5:1);
-        bell(n,t+off,1.6,0.085);
-      }
-    });
-    t+=BAR;
-  });
-  music.timer=setTimeout(loopMusic, BAR*PROG.length*1000-260);
-}
-function musicOn(){
-  initAudio(); if(!music.ctx) return;
-  music.ctx.resume();
-  if(!music.on){ music.on=true; loopMusic(); }
-  renderMusicBtn();
-  const g=music.master.gain, now=music.ctx.currentTime;
-  g.cancelScheduledValues(now); g.setValueAtTime(Math.max(g.value,0.0001),now);
-  g.linearRampToValueAtTime(music.target, now+1.5);
-  store.set("ot_music","on");
-  if(!reduced) $("musicBtn").animate(
-    [{transform:"scale(1)"},{transform:"scale(1.25) rotate(-10deg)"},{transform:"scale(1)"}],
-    {duration:520,easing:"cubic-bezier(.3,1.6,.5,1)"});
-}
-function musicOff(){
-  store.set("ot_music","off");
-  if(!music.ctx){ music.on=false; renderMusicBtn(); return; }
-  const g=music.master.gain, now=music.ctx.currentTime;
-  g.cancelScheduledValues(now); g.setValueAtTime(g.value,now);
-  g.linearRampToValueAtTime(0.0001, now+0.9);
-  music.on=false; renderMusicBtn();
-  clearTimeout(music.timer);
-  setTimeout(()=>{ if(!music.on&&music.ctx) music.ctx.suspend(); },1000);
-  if(!reduced) $("musicBtn").animate(
-    [{transform:"rotate(0)"},{transform:"rotate(14deg) scale(.9)"},{transform:"rotate(0) scale(1)"}],
-    {duration:420,easing:"ease-out"});
-}
-function renderMusicBtn(){
-  const b=$("musicBtn");
-  b.classList.toggle("off",!music.on);
-  b.setAttribute("aria-pressed",music.on);
-  b.innerHTML = music.on
-    ? `<span class="eq"><i></i><i></i><i></i><i></i></span>`
-    : `<svg><use href="#i-mute"/></svg>`;
-}
-/* autoplay: try immediately, then keep listening until a gesture unlocks audio */
-function wantsMusic(){ return store.get("ot_music","on") !== "off"; }
-function tryStart(){
-  if(!wantsMusic()) return;
-  initAudio(); if(!music.ctx) return;
-  const go=()=>{ if(music.ctx.state==="running" && !music.on) musicOn(); };
-  const r=music.ctx.resume();
-  if(r&&r.then) r.then(go).catch(()=>{}); else go();
-}
-let unlockArmed=false;
-function armUnlock(){
-  if(unlockArmed) return;
-  unlockArmed=true;
-  const evs=["pointerdown","touchend","click","keydown"];
-  const opt={capture:true,passive:true};
-  const go=()=>{
-    if(!wantsMusic()||music.on){ disarm(); return; }
-    tryStart();
-    setTimeout(()=>{ if(music.on) disarm(); },120);
-  };
-  const disarm=()=>{ evs.forEach(e=>window.removeEventListener(e,go,{capture:true})); unlockArmed=false; };
-  evs.forEach(e=>window.addEventListener(e,go,opt));
-}
-function primeMusic(){
-  renderMusicBtn();
-  if(!wantsMusic()) return;
-  tryStart();
-  armUnlock();
-  document.addEventListener("visibilitychange",()=>{
-    if(document.visibilityState==="visible" && wantsMusic() && !music.on) tryStart();
-  });
-}
-$("musicBtn").onclick = ()=>{ music.on ? musicOff() : musicOn(); };
 
 /* ============================ DOCUMENT SKIN UI ============================ */
 function renderDocSkins(){
@@ -1864,8 +1806,6 @@ $("shareBtn").onclick=shareImage;
 $("dateInput").value=state.date;
 renderDocSkins();
 renderAll();
-renderMusicBtn();
-primeMusic();
 
 if("serviceWorker" in navigator){
   window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
